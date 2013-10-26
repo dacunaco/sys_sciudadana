@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://webdeveloper.decontsoft.com/maps/';
+$config['base_url']	= 'http://localhost/sys_sciudadana/';
 
 /*
 |--------------------------------------------------------------------------
