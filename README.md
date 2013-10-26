@@ -1,4 +1,3 @@
-Sistema de Seguridad Ciudadana Para La Municipalidad Provincia de Trujillo
-==========================================================================
+#Sistema de Seguridad Ciudadana
 
-- Sistema Desarrollado en CodeIgniter.
+<strong>NOTA:</strong>
