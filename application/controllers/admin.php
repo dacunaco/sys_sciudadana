@@ -53,8 +53,8 @@
 
                 $data['map'] = $this->googlemaps->create_map();
                 
-                $this->load->view('admin/header');
-                $this->load->view('admin/view_main',$data);
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_main');
                 $this->load->view('admin/footer');
             }else{
                 redirect('user');
