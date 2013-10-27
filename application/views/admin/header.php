@@ -64,7 +64,7 @@
 <script type="text/javascript" src="<?= base_url()?>assets/js/charts/chart.js"></script>
 
 
-<?php echo $map['js']; ?>
+
 
 
 <!-- Shared on MafiaShare.net  --><!-- Shared on MafiaShare.net  --></head>
@@ -80,23 +80,24 @@
     <!-- Left navigation -->
     <ul id="menu" class="nav">
         <li class="dash"><a href="index.html" title="" class="active"><span>Página Principal</span></a></li>
-        <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>9</strong></a>
+        <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>10</strong></a>
             <ul class="sub">
-                <li class="last"><a href="#" title="">Lista de Zonas</a></li>
-                <li class="last"><a href="#" title="">Agregar Zonas</a></li>
                 <li class="last"><a href="#" title="">Listar Tipos de Incidentes</a></li>
-                <li class="last"><a href="#" title="">Agregar Tipos de Incidentes</a></li>
-                <li class="last"><a href="#" title="">Registrar Urbanizaciones</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nuevo_tipo_incidente" title="">Agregar Tipos de Incidentes</a></li>
+                <li class="last"><a href="#" title="">Lista de Zonas</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nueva_zona" title="">Agregar Zonas</a></li>
+                <li class="last"><a href="#" title="">Lista de Cuadrantes</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nuevo_cuadrante" title="">Registrar Cuadrantes</a></li>
                 <li class="last"><a href="#" title="">Lista de Urbanizaciones</a></li>
-                <li class="last"><a href="#" title="">Registrar Trabajador</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nueva_urbanizacion" title="">Registrar Urbanizaciones</a></li>
                 <li class="last"><a href="#" title="">Lista de Trabajadores</a></li>
-                <li class="last"><a href="#" title="">Lista de Usuarios</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nuevo_trabajador" title="">Registrar Trabajador</a></li>
                 
             </ul>
         </li>
         <li class="tables"><a href="#" title="" class="exp"><span>Operaciones</span><strong>10</strong></a>
             <ul class="sub">
-                <li class="last"><a href="#" title="">Registrar Incidente</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nuevo_incidente" title="">Registrar Incidente</a></li>
                 <li class="last"><a href="#" title="">Lista Incidentes</a></li>
                 <li class="last"><a href="#" title="">Buscar Incidentes</a></li>
                 <li class="last"><a href="#" title="">Reporte por Tipo de Incidente</a></li>

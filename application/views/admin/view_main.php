@@ -1,4 +1,4 @@
-
+<?php echo $map['js']; ?>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
