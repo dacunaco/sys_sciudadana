@@ -965,23 +965,23 @@
 			 *   by javascript
 			 */
 			this.oLanguage = {
-				"sProcessing": "Processing...",
-				"sLengthMenu": "<span class='itemsPerPage'>Items per page:</span> _MENU_",
-				"sZeroRecords": "No matching records found",
-				"sEmptyTable": "No data available in table",
+				"sProcessing": "Procesando...",
+				"sLengthMenu": "<span class='itemsPerPage'>Items por página:</span> _MENU_",
+				"sZeroRecords": "No hay registros coincidentes encontrados",
+				"sEmptyTable": "No hay datos disponibles en la tabla",
 				"sLoadingRecords": "Loading...",
 				"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-				"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+				"sInfoEmpty": "Mostrando 0 to 0 of 0 entradas",
 				"sInfoFiltered": "(_MAX_ in total)",
 				"sInfoPostFix": "",
 				"sInfoThousands": ",",
-				"sSearch": "<span class='itemsPerPage'>Search:</span>",
+				"sSearch": "<span class='itemsPerPage'>Buscar:</span>",
 				"sUrl": "",
 				"oPaginate": {
-					"sFirst":    "First",
-					"sPrevious": "Prev",
-					"sNext":     "Next",
-					"sLast":     "Last"
+					"sFirst":    "Primero",
+					"sPrevious": "Anterior",
+					"sNext":     "Siguiente",
+					"sLast":     "Último"
 				},
 				"fnInfoCallback": null
 			};
@@ -4276,7 +4276,7 @@
 			var sSearchStr = oSettings.oLanguage.sSearch;
 			sSearchStr = (sSearchStr.indexOf('_INPUT_') !== -1) ?
 			  sSearchStr.replace('_INPUT_', '<input type="text" />') :
-			  sSearchStr==="" ? '<input type="text" />' : sSearchStr+' <input type="text" placeholder="type here..." /><div class="srch"></div>';
+			  sSearchStr==="" ? '<input type="text" />' : sSearchStr+' <input type="text" placeholder="Ingrese criterio de búsqueda..." /><div class="srch"></div>';
 			
 			var nFilter = document.createElement( 'div' );
 			nFilter.className = oSettings.oClasses.sFilter;

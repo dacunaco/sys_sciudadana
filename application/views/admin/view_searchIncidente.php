@@ -7,7 +7,7 @@
     <div class="titleArea">
         <div class="wrapper">
             <div class="pageTitle">
-                <h5>Gestión de Incidentes</h5>
+                <h5>Búsqueda de Incidentes</h5>
                 <span>Sistema de gestión de incidencias.</span>
             </div>
             <div class="clear"></div>
@@ -21,7 +21,7 @@
         <form action="" class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
-                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Incidentes</h6></div>
+                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Búsqueda por zona, cuadrante y urbanización</h6></div>
                     <div class="formRow">
                         <label>Zona:</label>
                         <div class="formRight searchDrop">
@@ -49,25 +49,15 @@
                         </div>             
                         <div class="clear"></div>
                     </div>
-                    <div class="formRow">
-                        <label>Tipo de Incidente:</label>
-                        <div class="formRight searchDrop">
-                        <select data-placeholder="Seleccione Tipo de Incidente..." class="chzn-select" style="width:150px;" tabindex="2">
-                            <option value=""></option>
-                        </select>
-                        </div>             
-                        <div class="clear"></div>
-                    </div>
-                    <div class="formRow">
-                        <label>Descripción:</label>
-                        <div class="formRight"><textarea rows="8" cols="" name="descripcion" id="descripcion" class="validate[required]"></textarea></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="formRow">
-                        <label>Coordenadas:</label>
-                        <div class="formRight"><input type="text" value="" name="coordenadas" id="coordenadas" class="validate[required]" /><a href="#" title="" class="button greyishB" style="margin: 5px 0px;"><img src="<?= base_url()?>assets/images/icons/light/create.png" alt="" class="icon"><span>Obtener Coordenadas</span></a></div>
-                        <div class="clear"></div>
-                    </div>
+                    <div class="formSubmit"><input type="submit" value="Buscar" class="redB" /></div>
+                    <div class="clear"></div>
+                </div>
+            </fieldset>
+        </form>
+        <form action="" class="form" id="validate" method="post">
+            <fieldset>
+                <div class="widget">
+                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Búsqueda por fecha</h6></div>
                     <div class="formRow">
                         <label>Fecha:</label>
                         <div class="formRight">
@@ -75,14 +65,25 @@
                         </div>
                         <div class="clear"></div>
                     </div>
+                    <div class="formSubmit"><input type="submit" value="Buscar" class="redB" /></div>
+                    <div class="clear"></div>
+                </div>
+            </fieldset>
+        </form>
+        <form action="" class="form" id="validate" method="post">
+            <fieldset>
+                <div class="widget">
+                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Búsqueda por estado</h6></div>
                     <div class="formRow">
-                        <label>Hora:</label>
-                        <div class="formRight">
-                            <input type="text" class="timepicker" size="10" name="hora" id="hora" class="validate[required]" />
-                        </div>
+                        <label>Estado:</label>
+                        <div class="formRight searchDrop">
+                        <select data-placeholder="Seleccione Estado..." class="chzn-select" style="width:150px;" tabindex="2">
+                            <option value=""></option>
+                        </select>
+                        </div>             
                         <div class="clear"></div>
                     </div>
-                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" /></div>
+                    <div class="formSubmit"><input type="submit" value="Buscar" class="redB" /></div>
                     <div class="clear"></div>
                 </div>
             </fieldset>

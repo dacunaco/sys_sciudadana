@@ -180,5 +180,145 @@
                 redirect('user');
             }  
         }
+        
+        function listado_tipo_incidente(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listTipoIncidentes');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function listado_zonas(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listZonas');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function listado_cuadrantes(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listCuadrantes');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function listado_urbanizaciones(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listUrbanizacion');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function listado_trabajadores(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listTrabajador');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function listado_incidentes(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_listIncidente');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function buscar_incidente(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_searchIncidente');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
     }
 ?>

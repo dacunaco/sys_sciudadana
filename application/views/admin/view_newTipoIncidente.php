@@ -6,17 +6,6 @@
                 <h5>Gestión de Tipos de Incidentes</h5>
                 <span>Sistema de gestión de incidencias.</span>
             </div>
-            <div class="middleNav">
-                <ul>
-                    <li class="mUser"><a title="Usuarios" class="tipN"><span class="users"></span></a>
-                        <ul class="mSub1">
-                            <li><a href="#" title="">Nuevo Tipo Incidente</a></li>
-                        </ul>
-                    </li>
-                    <li class="mFiles"><a href="#" title="Incidencias" class="tipN"><span class="files"></span></a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
             <div class="clear"></div>
         </div>
     </div>
