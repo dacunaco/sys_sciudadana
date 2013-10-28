@@ -1,5 +1,6 @@
-function lightBox(carpeta,modulo,coordenadas){
-	$("#lightbox").remove();
+function lightBox(){
+    alert("asdasd");
+	/*$("#lightbox").remove();
 	if ($('#lightbox').length > 0) {
 		$.ajax({
 			url: carpeta+'/'+modulo+'?co='+coordenadas,
@@ -30,7 +31,7 @@ function lightBox(carpeta,modulo,coordenadas){
 				$("#content").css("margin-top",-1*(divAlto/2));
 			}
 		});
-	}
+	}*/
 }
 function cerrarLightBox(){
 	$("#lightbox").hide();

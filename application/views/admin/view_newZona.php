@@ -1,4 +1,9 @@
-
+<script>
+    $( document ).ready(function() {
+    lightBox();
+});
+    
+</script>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
@@ -14,13 +19,13 @@
     
     <div class="wrapper">
         <!-- Form -->
-        <form action="" class="form">
+        <form action="" class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
                     <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Zonas</h6></div>
                     <div class="formRow">
                         <label>Nombre de Zona:</label>
-                        <div class="formRight"><input type="text" value="" /></div>
+                        <div class="formRight"><input type="text" value="" id="zona" name="zona" class="validate[required]" /></div>
                         <div class="clear"></div>
                     </div>   
                     <div class="formRow">

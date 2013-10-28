@@ -24,7 +24,7 @@
 
 <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/uniform.js"></script>
 <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.cleditor.js"></script>
-<script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.validationEngine-es.js"></script>
 <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.tagsinput.min.js"></script>
 <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/autogrowtextarea.js"></script>
