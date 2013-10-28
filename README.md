@@ -16,8 +16,8 @@
   $db['default']['database'] = 'password';
 </pre>
 
-> 2.- Se tiene que crear la base de datos:
+> 3.- Se tiene que crear la base de datos:
 
 <pre>
-  create database sys_sciudadana;
+  CREATE DATABASE sys_sciudadana
 </pre>
