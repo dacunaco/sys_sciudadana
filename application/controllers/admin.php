@@ -320,5 +320,85 @@
                 redirect('user');
             }  
         }
+        
+        function reporte_tipo_incidente(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportTipoIncidente');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporte_tipo_incidente_zona(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportTIZ');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporte_tipo_incidente_zona_estado(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportTIZE');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporte_tipo_incidente_zona_urbanizacion(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'num_users' => $this->Admin_model->getNumUsers(),
+                    'user' => $this->Admin_model->getUsersByName()
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportTIZU');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
     }
 ?>

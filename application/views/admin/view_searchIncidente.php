@@ -1,8 +1,3 @@
-<style>
-    .timeEntry_control{
-        background: url('<?= base_url()?>assets/images/forms/spinnerUpDown.png') !important;
-    }
-</style>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">

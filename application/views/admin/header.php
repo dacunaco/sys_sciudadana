@@ -100,10 +100,10 @@
                 <li class="last"><a href="<?= base_url()?>admin/nuevo_incidente" title="">Registrar Incidente</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/listado_incidentes" title="">Lista Incidentes</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/buscar_incidente" title="">Buscar Incidentes</a></li>
-                <li class="last"><a href="#" title="">Reporte por Tipo de Incidente</a></li>
-                <li class="last"><a href="#" title="">Reporte por Zona y Tipo de Incidente</a></li>
-                <li class="last"><a href="#" title="">Reporte por Zona, Tipo de Incidente y Estado Actual</a></li>
-                <li class="last"><a href="#" title="">Reporte por Zona, Tipo de Incidente y Urbanización</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente" title="">Reporte por Tipo de Incidente</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona" title="">Reporte por Zona y Tipo de Incidente</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona_estado" title="">Reporte por Zona, Tipo de Incidente y Estado Actual</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona_urbanizacion" title="">Reporte por Zona, Tipo de Incidente y Urbanización</a></li>
                 <li class="last"><a href="#" title="">Reporte por Totales Anuales y Mensuales</a></li>
                 <li class="last"><a href="#" title="">Reporte en Mapa por Tipo y Zona</a></li>
                 <li class="last"><a href="#" title="">Reporte Gráfico</a></li>
