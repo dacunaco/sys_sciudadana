@@ -70,7 +70,8 @@
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
                     'dni' => $this->session->userdata['user_data']['user_dni'],
                     'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'user' => $this->Admin_model->getUsersByName(),
+                    'departamentos' => $this->Admin_model->getDepartamentos()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -399,6 +400,53 @@
             }else{
                 redirect('user');
             }  
+        }
+        
+        function newZona(){
+            $zona = $this->input->post("zona");
+            $departamento = $this->input->post("departamento");
+            $provincia = $this->input->post("provincia");
+            $distrito = $this->input->post("distrito");
+            $count = $this->db->get("zona")->num_rows();
+            $idzona = "ZN".$this->zerofill($count + 1, 9);
+            
+            $result = $this->Admin_model->insertZona($idzona,$zona,$departamento,$provincia,$distrito);
+            
+            if($result){
+                echo "Se insertó correctamente la zona.";
+            }
+            
+        }
+        
+        function cargarProvincias(){
+            $departamento = $this->input->post("departamento");
+            
+            $result = $this->Admin_model->getProvincias($departamento);
+            
+            foreach ($result as $row_provincia){
+                echo '<option value="'.$row_provincia->IdProvincia.'">'.$row_provincia->Nombre.'</option>';
+            }
+        }
+        
+        function cargarDistritos(){
+            $provincia = $this->input->post("provincia");
+            
+            $result = $this->Admin_model->getDistritos($provincia);
+            
+            foreach ($result as $row_distrito){
+                echo '<option value="'.$row_distrito->IdDistrito.'">'.$row_distrito->Nombre.'</option>';
+            }
+        }
+        
+        function zerofill($entero, $largo){
+            $entero = (int)$entero;
+            $largo = (int)$largo;
+
+            $relleno = '';
+            if (strlen($entero) < $largo) {
+                $relleno = str_repeat('0', $largo - strlen($entero));
+            }
+            return $relleno . $entero;
         }
     }
 ?>

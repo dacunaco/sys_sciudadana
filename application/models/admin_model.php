@@ -90,5 +90,31 @@
             $query = $this->db->get('incidencia')->result();
             return $query;
         }
+        
+        function getDepartamentos(){
+            $result = $this->db->get('departamento')->result();
+            
+            return $result;
+        }
+        
+        function getProvincias($departamento){
+            $this->db->where("IdDepartamento",$departamento);
+            $result = $this->db->get("provincia")->result();
+            
+            return $result;
+        }
+        
+        function getDistritos($provincia){
+            $this->db->where("IdProvincia",$provincia);
+            $result = $this->db->get("distrito")->result();
+            
+            return $result;
+        }
+        
+        function insertZona($id,$zona,$departamento,$provincia,$distrito){
+            $result = $this->db->insert("zona",array("idzona" => $id, "strnombrezona" => $zona, "IdDepartamento" => $departamento, "IdProvincia" => $provincia, "IdDistrito" => $distrito));
+            
+            return $result;
+        }
     }
 ?>

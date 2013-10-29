@@ -83,9 +83,9 @@
         <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>10</strong></a>
             <ul class="sub">
                 <li class="last"><a href="<?= base_url()?>admin/listado_tipo_incidente" title="">Lista Tipos de Incidentes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nuevo_tipo_incidente" title="">Agregar Tipos de Incidentes</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nuevo_tipo_incidente" title="">Registrar Tipos de Incidentes</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/listado_zonas" title="">Lista de Zonas</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nueva_zona" title="">Agregar Zonas</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/nueva_zona" title="">Registrar Zonas</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/listado_cuadrantes" title="">Lista de Cuadrantes</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/nuevo_cuadrante" title="">Registrar Cuadrantes</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/listado_urbanizaciones" title="">Lista de Urbanizaciones</a></li>
