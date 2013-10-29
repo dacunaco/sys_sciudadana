@@ -17,11 +17,11 @@
                     'num_users' => $this->Admin_model->getNumUsers(),
                     'user' => $this->Admin_model->getUsersByName()
                 );
-                $data['alta'] = $this->Main_model->getIncidenciaByState(1);
+                /*$data['alta'] = $this->Main_model->getIncidenciaByState(1);
                 $data['media'] = $this->Main_model->getIncidenciaByState(2);
                 $data['baja'] = $this->Main_model->getIncidenciaByState(3);
                 $data['cero'] = $this->Main_model->getIncidenciaByState(4);
-                $incidencias = $this->Main_model->getIndicencias();
+                $incidencias = $this->Main_model->getIndicencias();*/
         
                 $this->load->library('googlemaps');
 
@@ -32,7 +32,7 @@
                 $config['places'] = TRUE;
                 $this->googlemaps->initialize($config);
 
-                foreach ($incidencias as $row){
+                /*foreach ($incidencias as $row){
                     $co = str_replace("(", "", $row->coordenadas);
                     $se = explode(",", $co);
                     $marker = array();
@@ -49,7 +49,7 @@
                     }
                     $marker['animation'] = 'BOUNCE';
                     $this->googlemaps->add_marker($marker);
-                }        
+                }*/        
 
                 $data['map'] = $this->googlemaps->create_map();
                 
