@@ -13,9 +13,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 /*$data['alta'] = $this->Main_model->getIncidenciaByState(1);
                 $data['media'] = $this->Main_model->getIncidenciaByState(2);
@@ -69,8 +67,6 @@
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
                     'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName(),
                     'departamentos' => $this->Admin_model->getDepartamentos()
                 );
                 
@@ -89,9 +85,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -129,9 +123,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -149,9 +141,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -169,9 +159,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -189,9 +177,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -210,8 +196,7 @@
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
                     'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'zonas' => $this->Admin_model->getZonas()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -229,9 +214,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -249,9 +232,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -269,9 +250,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -289,9 +268,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -309,9 +286,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -329,9 +304,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -349,9 +322,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -369,9 +340,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -389,9 +358,7 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -404,7 +371,7 @@
         
         function newZona(){
             $zona = $this->input->post("zona");
-            $departamento = $this->input->post("departamento");
+            $departamento = $this->input->post("region");
             $provincia = $this->input->post("provincia");
             $distrito = $this->input->post("distrito");
             $count = $this->db->get("zona")->num_rows();

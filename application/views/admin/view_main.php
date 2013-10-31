@@ -104,7 +104,7 @@
                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="center">
-                            <div class="legend" style="margin: 0 auto; width: 100%;overflow: hidden;margin-left: 20%; margin-top: 20px;">
+                            <!--<div class="legend" style="margin: 0 auto; width: 100%;overflow: hidden;margin-left: 20%; margin-top: 20px;">
                                 <img src="<?= base_url()?>assets/images/icon-alta.png" width="60" style="float:left;">
                                 <div class="t-legend" style="float:left;text-align: center; line-height: 15px;margin-top: 10px;margin-left: -5px;">
                                     <span style="font-size: 14px;">Peligrosidad Alta</span><br />
@@ -150,7 +150,7 @@
                                     <a href='<?= base_url()?>main/listIncidenciasById?iid=4'><span style="font-size: 12px;">(<?=$i?>)</span></a>
                                 </div>
                                 <p style="clear: both"></p>
-                            </div>
+                            </div>-->
                         </td>
                     </tr>
                     <tr>

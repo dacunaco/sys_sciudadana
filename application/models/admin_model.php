@@ -58,5 +58,13 @@
             
             return $result;
         }
+        
+        function getZonas(){
+            $this->db->select("a.*,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito");
+            $this->db->where("a.IdDepartamento = b.IdDepartamento and a.IdProvincia = c.IdProvincia and a.IdDistrito = d.IdDistrito");
+            $result = $this->db->get("zona a, departamento b, provincia c, distrito d");
+            
+            return $result;
+        }
     }
 ?>

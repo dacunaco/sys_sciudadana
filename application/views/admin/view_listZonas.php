@@ -29,6 +29,18 @@
             </tr>
             </thead>
             <tbody>
+            <?php
+                $i = 1;
+                foreach ($zonas as $row_zona){?>
+                    <tr class="gradeA">
+                        <td><?= $i?></td>
+                        <td><?= $row_zona->strnombrezona?></td>
+                        <td><?= $row_zona->region?></td>
+                        <td><?= $row_zona->provincia?></td>
+                        <td><?= $row_zona->distrito?></td>
+                    </tr>
+                <?php }
+            ?>
             <!--<tr class="gradeA">
             <td>Trident</td>
             <td>Internet

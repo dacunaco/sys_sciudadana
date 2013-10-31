@@ -7,6 +7,7 @@
 </style>
 <script>
     $(window).load(function() {
+        document.getElementById("zona").focus();
         $('.redB').click(function(){
              $("#validate").validate({
                 rules: {
@@ -45,6 +46,9 @@
                             document.getElementById("submit").disabled = false;
                             $("#resultados").html("");
                             $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                            window.setTimeout(function () {
+                                location.href = "<?= base_url()?>admin/nueva_zona";
+                            }, 1500);
                         },
                         beforeSend: function(){
                             $("#resultados").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
