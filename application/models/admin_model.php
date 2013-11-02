@@ -60,9 +60,9 @@
         }
         
         function getZonas(){
-            $this->db->select("a.*,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito");
-            $this->db->where("a.IdDepartamento = b.IdDepartamento and a.IdProvincia = c.IdProvincia and a.IdDistrito = d.IdDistrito");
-            $result = $this->db->get("zona a, departamento b, provincia c, distrito d");
+            $this->db->select("a.idzona,a.strnombrezona,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito");
+            $this->db->where("a.IdDepartamento = CONVERT(b.IdDepartamento using utf8) collate utf8_unicode_ci and a.IdProvincia = CONVERT(c.IdProvincia using utf8) collate utf8_unicode_ci and a.IdDistrito = d.IdDistrito");
+            $result = $this->db->get("zona a, departamento b, provincia c, distrito d")->result();
             
             return $result;
         }

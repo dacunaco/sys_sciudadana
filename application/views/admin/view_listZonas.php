@@ -38,6 +38,10 @@
                         <td><?= $row_zona->region?></td>
                         <td><?= $row_zona->provincia?></td>
                         <td><?= $row_zona->distrito?></td>
+                        <td class="center">
+                            <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
+                            <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
+                        </td>
                     </tr>
                 <?php }
             ?>
