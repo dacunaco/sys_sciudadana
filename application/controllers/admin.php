@@ -385,6 +385,53 @@
             
         }
         
+        function editar_zona(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['zona'] = $this->Admin_model->getZonaById($this->input->get('zid'));
+            
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_editZona');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+            
+        }
+        
+        function editZona(){
+            $zona = $this->input->post("zona");
+            $departamento = $this->input->post("region");
+            $provincia = $this->input->post("provincia");
+            $distrito = $this->input->post("distrito");
+            $idzona = $this->input->post("id");
+            
+            $result = $this->Admin_model->modifyZona($idzona,$zona,$departamento,$provincia,$distrito);
+            
+            if($result){
+                echo "Se modificó correctamente la zona.";
+            }
+            
+        }
+        
+        function deleteZona(){
+            $zona = $this->input->post("zona");
+            
+            $result = $this->Admin_model->deleteZona($zona);
+            
+            if($result){
+                echo "Se eliminó correctamente la zona.";
+            }
+            
+        }
+        
         function cargarProvincias(){
             $departamento = $this->input->post("departamento");
             

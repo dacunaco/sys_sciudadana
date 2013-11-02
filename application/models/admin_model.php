@@ -62,7 +62,29 @@
         function getZonas(){
             $this->db->select("a.idzona,a.strnombrezona,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito");
             $this->db->where("a.IdDepartamento = CONVERT(b.IdDepartamento using utf8) collate utf8_unicode_ci and a.IdProvincia = CONVERT(c.IdProvincia using utf8) collate utf8_unicode_ci and a.IdDistrito = d.IdDistrito");
+            $this->db->order_by("a.idzona","asc");
             $result = $this->db->get("zona a, departamento b, provincia c, distrito d")->result();
+            
+            return $result;
+        }
+        
+        function getZonaById($zona){
+            $this->db->where("idzona",$zona);
+            $result = $this->db->get("zona")->result();
+            
+            return $result;
+        }
+        
+        function modifyZona($id,$zona,$departamento,$provincia,$distrito){
+            $this->db->where("idzona",$id);
+            $result = $this->db->update("zona",array("strnombrezona" => $zona, "IdDepartamento" => $departamento, "IdProvincia" => $provincia, "IdDistrito" => $distrito));
+            
+            return $result;
+        }
+        
+        function deleteZona($zona){
+            $this->db->where("idzona",$zona);
+            $result = $this->db->delete("zona");
             
             return $result;
         }
