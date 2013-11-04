@@ -1,4 +1,29 @@
-
+<script type="text/javascript" src="<?= base_url()?>assets/ajaxupload/ajaxfileupload.js"></script>
+<script>
+    $(window).load(function() {
+        $('#validate').submit(function(e) {
+        e.preventDefault();
+        $.ajaxFileUpload({
+           url         :'<?= base_url()?>admin/newTipoIncidente', 
+           secureuri      :false,
+           fileElementId  :'imagen',
+           dataType    : 'json',
+           data        : {
+              'tipoincidente'           : $('#tipoincidente').val()
+           },
+           success  : function (data, status)
+           {
+              if(data.status != 'error')
+              {
+                 $('#tipoincidente').val('');
+              }
+              alert(data.msg);
+           }
+        });
+        return false;
+     });
+    }
+</script>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
@@ -14,7 +39,7 @@
     
     <div class="wrapper">
         <!-- Form -->
-        <form action="<?= base_url()?>admin/insertTipoIncidente" class="form" id="validate" method="post">
+        <form action="" class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
                     <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Tipos de Incidentes</h6></div>
