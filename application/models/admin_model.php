@@ -167,5 +167,19 @@
             
             return $result;
         }
+        
+        function deleteUrbanizacion($urbanizacion){
+            $this->db->where("idurbanizacion",$urbanizacion);
+            $result = $this->db->delete("urbanizacion");
+            
+            return $result;
+        }
+        
+        function modifyUrbanizacion($id,$urbanizacion,$cuadrante,$zona){
+            $this->db->where("idurbanizacion",$id);
+            $result = $this->db->update("urbanizacion",array("strnombreurbanizacion" => $urbanizacion, "idcuadrante" =>$cuadrante, "idzona" => $zona));
+            
+            return $result;
+        }
     }
 ?>

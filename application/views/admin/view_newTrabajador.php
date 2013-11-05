@@ -1,4 +1,114 @@
-
+<style>
+    #resultados{
+        float: left;
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+</style>
+<script>
+    $(window).load(function() {
+        document.getElementById("codigo").focus();
+        $('.redB').click(function(){
+             $("#validate").validate({
+                rules: {
+                    codigo: { 
+                        required: true, 
+                    },
+                    nombres:{
+                        required: true,
+                    },
+                    apellidopaterno: {
+                        required: true,
+                    },
+                    apellidomaterno: {
+                        required: true,
+                    },
+                    direccion: {
+                        required: true,
+                    },
+                    dni: {
+                        required: true,
+                        number: true,
+                    },
+                    sexo: {
+                      required: true,  
+                    },
+                    fechanacimiento: {
+                        required: true,
+                    }
+                    
+                },
+                messages: { 
+                    codigo: { 
+                        required: "Ingrese código para continuar",   
+                    },
+                    nombres:{
+                        required: "Ingrese nombres para continuar",
+                    },
+                    apellidopaterno: {
+                        required: "Ingrese apellido paterno para continuar",
+                    },
+                    apellidomaterno: {
+                        required: "Ingrese apellido materno para continuar",
+                    },
+                    direccion: {
+                        required: "Ingrese dirección para continuar",
+                    },
+                    dni: {
+                        required: "Ingrese DNI para continuar",
+                    },
+                    sexo:{
+                        required: "Seleccione sexo",
+                    },
+                    fechanacimiento: {
+                        required: "Seleccione fecha de nacimiento",
+                    }
+                },
+                submitHandler: function(form) {
+                    $(form).ajaxSubmit({
+                        url:"<?= base_url()?>admin/newUrbanizacion",
+                        type:"post",
+                        success: function(data){
+                            document.getElementById("submit").disabled = false;
+                            $("#resultados").html("");
+                            $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                            window.setTimeout(function () {
+                                location.href = "<?= base_url()?>admin/nueva_urbanizacion";
+                            }, 1500);
+                        },
+                        beforeSend: function(){
+                            $("#resultados").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                            document.getElementById("submit").disabled = true;
+                        },
+                        error:function(){
+                            $("#resultados").html('Hubo un error mientras se insertaba los datos.');
+                        }
+                    });
+              }
+            }); 
+        });
+        $("#zona").change(function() {
+            $("#zona option:selected").each(function() {
+                var zona = $('#zona').val();
+                $.ajax({
+                    url: "<?= base_url()?>admin/cargarCuadrantes",
+                    type: "post",
+                    data: "zona="+zona,
+                    success: function(data){
+                        $("#cuadrante").html(data);
+                        $("#waiting").html('');
+                    },
+                    beforeSend: function(){
+                        $("#waiting").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                    },
+                    error:function(){
+                        $("#waiting").html('Hubo un error mientras se cargaba los datos.');
+                    }
+                });
+            });
+        });
+    });
+</script>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
@@ -19,39 +129,51 @@
                 <div class="widget">
                     <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Trabajadores</h6></div>
                     <div class="formRow">
-                        <label>Código:</label>
-                        <div class="formRight"><input type="text" value="" style="width: 150px !important" name="codigo" id="codigo" class="validate[required]" /></div>
+                        <label>Código:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" style="width: 150px !important" name="codigo" id="codigo" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>Nombres:</label>
-                        <div class="formRight"><input type="text" value="" name="nombres" id="nombres" class="validate[required]" /></div>
+                        <label>Nombres:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" name="nombres" id="nombres" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>Apellido Paterno:</label>
-                        <div class="formRight"><input type="text" value="" name="apellidopaterno" id="apellidopaterno" class="validate[required]" /></div>
+                        <label>Apellido Paterno:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" name="apellidopaterno" id="apellidopaterno" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>Apellido Materno:</label>
-                        <div class="formRight"><input type="text" value="" name="apellidomaterno" id="apellidomaterno" class="validate[required]" /></div>
+                        <label>Apellido Materno:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" name="apellidomaterno" id="apellidomaterno" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>Dirección:</label>
-                        <div class="formRight"><input type="text" value="" name="direccion" id="direccion" class="validate[required]" /></div>
+                        <label>Dirección:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" name="direccion" id="direccion" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>DNI:</label>
-                        <div class="formRight"><input type="text" value="" style="width: 150px !important" name="dni" id="dni" class="validate[required,custom[onlyNumberSp]]" maxlength="8" /></div>
+                        <label>DNI:<span class="req">*</span></label>
+                        <div class="formRight"><input type="text" value="" style="width: 150px !important" name="dni" id="dni" maxlength="8" /></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">
-                        <label>Fecha de Nacimiento:</label>
+                        <label>Sexo:<span class="req">*</span></label>
                         <div class="formRight">
-                            <input type="text" class="datepicker" name="fechanacimiento" id="fechanacimiento" class="validate[required]" />
+                            <select name="sexo" id="sexo">
+                                <option value="">Seleccione un sexo</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>           
+                        </div>
+                        <div class="formRight" id="waiting"></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="formRow">
+                        <label>Fecha de Nacimiento:<span class="req">*</span></label>
+                        <div class="formRight">
+                            <input type="text" class="datepicker" name="fechanacimiento" id="fechanacimiento"/>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -60,7 +182,7 @@
                         <div class="formRight"><input type="text" value="" style="width: 150px !important" /></div>
                         <div class="clear"></div>
                     </div>
-                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" /></div>
+                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" /><div id="resultados"></div></div>
                     <div class="clear"></div>
                 </div>
             </fieldset>

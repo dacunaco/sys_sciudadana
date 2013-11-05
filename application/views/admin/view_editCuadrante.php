@@ -69,7 +69,7 @@
         <form action="" class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
-                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Cuadrantes</h6></div>
+                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Edición de Cuadrantes</h6></div>
                     <?php
                         foreach ($cuadrante as $row_cuadrante){?>
                             <div class="formRow">

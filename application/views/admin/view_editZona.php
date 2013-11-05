@@ -121,7 +121,7 @@
         <form class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
-                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Zonas</h6></div>
+                    <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Edición de Zonas</h6></div>
                     <?php
                         foreach ($zona as $row_zona){?>
                             <div class="formRow">

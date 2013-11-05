@@ -616,6 +616,67 @@
             }
         }
         
+        function deleteUrbanizacion(){
+            $urbanizacion = $this->input->post("urbanizacion");
+            
+            $result = $this->Admin_model->deleteUrbanizacion($urbanizacion);
+            
+            if($result){
+                echo "Se eliminó correctamente la urbanización.";
+            } 
+        }
+        
+        function editar_urbanizacion(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'zonas' => $this->db->get("zona")->result()
+                );
+                
+                $data['urbanizacion'] = $this->db->get_where("urbanizacion",array("idurbanizacion" => $this->input->get("uid")))->result();
+            
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_editUrbanizacion');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function editUrbanizacion(){
+            $cuadrante = $this->input->post("cuadrante");
+            $zona = $this->input->post("zona");
+            $urbanizacion = $this->input->post("urbanizacion");
+            $idurbanizacion = $this->input->post("id");
+            
+            $result = $this->Admin_model->modifyUrbanizacion($idurbanizacion,$urbanizacion,$cuadrante,$zona);
+            
+            if($result){
+                echo "Se modificó correctamente la urbanización.";
+            }
+        }
+        
+        function newTrabajador(){
+            $count = $this->db->get("trabajador")->num_rows();
+            $idtrabajador = "TB".$this->zerofill($count + 1, 9);
+            
+            $data_insert = array(
+                'idtrabajador' => $idtrabajador,
+                'strnombres' => $this->input->post("nombres"),
+                'strapellidopaterno' => $this->input->post("apellidopaterno"),
+                'strapellidomaterno' => $this->input->post("apellidomaterno"),
+                'strdireccion' => $this->input->post("direccion"),
+                'strdni' => $this->input->post("dni"),
+                'strsexo' => $this->input->post("sexo"),
+                'datfechanacimiento' => $this->input->post("fechanacimiento"),
+                'strcodigo' => $this->input->post("codigo")
+            );
+        }
+        
         function cargarProvincias(){
             $departamento = $this->input->post("departamento");
             
