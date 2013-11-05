@@ -31,16 +31,24 @@
             </tr>
             </thead>
             <tbody>
-            <!--<tr class="gradeA">
-            <td>Trident</td>
-            <td>Internet
-            Explorer 4.0</td>
-            <td>Win 95+</td>
-            <td class="center">
-                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
-                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
-            </td>
-            </tr>-->
+                <?php
+                    $i = 1;
+                    foreach ($urbanizaciones as $row_urbanizacion){?>
+                        <tr class="gradeA">
+                            <td><?= $i?></td>
+                            <td><?= $row_urbanizacion->strnombreurbanizacion?></td>
+                            <td><?= $row_urbanizacion->strnombrecuadrante?></td>
+                            <td><?= $row_urbanizacion->strnombrezona?></td>
+                            <td><?= $row_urbanizacion->distrito?></td>
+                            <td><?= $row_urbanizacion->provincia?></td>
+                            <td><?= $row_urbanizacion->region?></td>
+                            <td class="center">
+                                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
+                                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
+                            </td>
+                        </tr>
+                    <?php $i++;}
+                ?>
             </tbody>
             </table>  
         </div>

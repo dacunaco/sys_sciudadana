@@ -78,7 +78,7 @@
             }  
         }
         
-        function nuevo_tipo_incidente(){
+        function nuevo_tipo_incidente($mensaje = NULL){
             if($this->session->userdata('user_data')){
                 $data = array(
                     'foto' => $this->session->userdata['user_data']['user_foto'],
@@ -88,6 +88,7 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $data['mensaje'] = $mensaje;
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_newTipoIncidente');
                 $this->load->view('admin/footer');
@@ -104,8 +105,7 @@
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
                     'dni' => $this->session->userdata['user_data']['user_dni'],
-                    'num_users' => $this->Admin_model->getNumUsers(),
-                    'user' => $this->Admin_model->getUsersByName()
+                    'zonas' => $this->db->get("zona")->result()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -123,7 +123,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'zonas' => $this->db->get("zona")->result()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -170,16 +171,18 @@
             }  
         }
         
-        function listado_tipo_incidente(){
+        function listado_tipo_incidente($mensaje = NULL){
             if($this->session->userdata('user_data')){
                 $data = array(
                     'foto' => $this->session->userdata['user_data']['user_foto'],
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'tipo_incidentes' => $this->db->get("tipo_incidente")->result()
                 );
                 
+                $data['mensaje'] = $mensaje;
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_listTipoIncidentes');
                 $this->load->view('admin/footer');
@@ -214,7 +217,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'cuadrantes' => $this->Admin_model->getCuadrantes()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -232,7 +236,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'urbanizaciones' => $this->Admin_model->getUrbanizaciones()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -433,48 +438,182 @@
         }
         
         function newTipoIncidente(){
-            $status = "";
-            $msg = "";
-            $file_element_name = 'imagen';
-
-            if (empty($_POST['tipoincidente']))
-            {
-               $status = "error";
-               $msg = "Porfavor ingrese una descripción";
+            $count = $this->db->get("tipo_incidente")->num_rows();
+            $tipoincidente = "TI".$this->zerofill($count + 1, 9);
+            $descripcion = $this->input->post("tipoincidente");
+            for($i = 0; $i < count($_FILES); $i++)  {   
+		if(!empty($_FILES['imagen'.$i]['name'])){
+                    $respuesta[] = $this->doUpload($tipoincidente,$i, $_FILES['imagen'.$i],'assets/images/tipo-incidente/', 'jpg|png|jpeg|gif',9999, 9999, 0);               
+            	}
+            };
+            
+            if($respuesta[0] == 0){
+                $this->nuevo_tipo_incidente(0);
+            }else{
+                foreach ($respuesta as $key => $value) {
+                    foreach ($value as $key2 => $value2) {
+                        $result = $this->Admin_model->insertTipoIncidente($value2['file_name'],$tipoincidente,$descripcion);
+                        if($result){
+                            $this->nuevo_tipo_incidente(1);
+                        }
+                    }
+                }
             }
+        }
+        
+        function deleteTipoIncidente(){
+            $tipoincidente = $this->input->post("tipoincidente");
+            
+            $image = $this->Admin_model->extractImagesTipoIncidente($tipoincidente);
 
-            if ($status != "error")
-            {
-               $config['upload_path'] = base_url().'assets/images/tipo-incidente/';
-               $config['allowed_types'] = 'gif|jpg|png';
-               $config['max_size']  = 1024 * 8;
-               $config['encrypt_name'] = TRUE;
-
-               $this->load->library('upload', $config);
-
-               if (!$this->upload->do_upload($file_element_name))
-               {
-                  $status = 'error';
-                  $msg = $this->upload->display_errors('', '');
-               }
-               else
-               {
-                  $data = $this->upload->data();
-                  if($file_id)
-                  {
-                     $status = "success";
-                     $msg = "File successfully uploaded";
-                  }
-                  else
-                  {
-                     unlink($data['full_path']);
-                     $status = "error";
-                     $msg = "Something went wrong when saving the file, please try again.";
-                  }
-               }
-               @unlink($_FILES[$file_element_name]);
+            foreach ($image as $row_image){
+                if($this->delete("assets/images/tipo-incidente", $row_image->imgtipoincidente)){
+                    $result = $this->Admin_model->deleteTipoIncidente($tipoincidente);
+                    
+                    if($result){
+                        echo "Se eliminó correctamente el tipo incidente.";
+                    }
+                }
             }
-            echo json_encode(array('status' => $status, 'msg' => $msg));
+        }
+        
+        function editar_tipo_incidente($mensaje = NULL){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'tipoincidente' => $this->db->get_where("tipo_incidente",array("idtipoincidente" => $this->input->get("tpid")))->result()
+                );
+                
+                $data['id'] = $this->input->get("tpid");
+                $data['mensaje'] = $mensaje;
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_editTipoIncidente');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function editTipoIncidente(){
+            $tipoincidente = $this->input->post("id");
+            $imagen = $_FILES['imagen0']['name'];
+            
+            $image = $this->Admin_model->extractImagesTipoIncidente($tipoincidente);
+
+            foreach ($image as $row_image){
+                if($imagen == ""){
+                    $data_insert = array(
+                        'strtipoincidente' => $this->input->post("tipoincidente")
+                    );
+                    $result = $this->Admin_model->editTipoIncidente($data_insert,$tipoincidente);
+                    if($result){
+                        $this->listado_tipo_incidente(1);
+                    }
+                }else{
+                    if($this->delete("assets/images/tipo-incidente", $row_image->imgtipoincidente)){
+                        for($i = 0; $i < count($_FILES); $i++)  {   
+                            if(!empty($_FILES['imagen'.$i]['name'])){
+                                $respuesta[] = $this->doUpload($tipoincidente,$i, $_FILES['imagen'.$i],'assets/images/tipo-incidente/', 'jpg|png|jpeg|gif',9999, 9999, 0);               
+                            }
+                        };
+
+                        if($respuesta[0] == 0){
+                            $this->listado_tipo_incidente(0);
+                        }else{
+                            foreach ($respuesta as $key => $value) {
+                                foreach ($value as $key2 => $value2) {
+                                    $data_insert = array(
+                                        'imgtipoincidente' => $value2['file_name'],
+                                        'strtipoincidente' => $this->input->post("tipoincidente")
+                                    );
+                                    $result = $this->Admin_model->editTipoIncidente($data_insert,$tipoincidente);
+                                    if($result){
+                                        $this->listado_tipo_incidente(1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        
+        function newCuadrante(){
+            $zona = $this->input->post("zona");
+            $cuadrante = $this->input->post("cuadrante");
+            $count = $this->db->get("cuadrante")->num_rows();
+            $idcuadrante = "CD".$this->zerofill($count + 1, 9);
+            
+            $result = $this->Admin_model->insertCuadrante($idcuadrante,$zona,$cuadrante);
+            
+            if($result){
+                echo "Se insertó correctamente la zona.";
+            }
+            
+        }
+        
+        function editar_cuadrante(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'zonas' => $this->db->get("zona")->result()
+                );
+                
+                $data['cuadrante'] = $this->db->get_where("cuadrante",array("idcuadrante" => $this->input->get("cid")))->result();
+            
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_editCuadrante');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+            
+        }
+        
+        function editCuadrante(){
+            $cuadrante = $this->input->post("cuadrante");
+            $zona = $this->input->post("zona");
+            $idcuadrante = $this->input->post("id");
+            
+            $result = $this->Admin_model->modifyCuadrante($idcuadrante,$cuadrante,$zona);
+            
+            if($result){
+                echo "Se modificó correctamente la zona.";
+            }
+        }
+        
+        function deleteCuadrante(){
+            $cuadrante = $this->input->post("cuadrante");
+            
+            $result = $this->Admin_model->deleteCuadrante($cuadrante);
+            
+            if($result){
+                echo "Se eliminó correctamente el cuadrante.";
+            }
+            
+        }
+        
+        function newUrbanizacion(){
+            $zona = $this->input->post("zona");
+            $cuadrante = $this->input->post("cuadrante");
+            $urbanizacion = $this->input->post("urbanizacion");
+            $count = $this->db->get("urbanizacion")->num_rows();
+            $idurbanizacion = "UR".$this->zerofill($count + 1, 9);
+            
+            $result = $this->Admin_model->insertUrbanizacion($idurbanizacion,$urbanizacion,$zona,$cuadrante);
+            
+            if($result){
+                echo "Se insertó correctamente la urbanizacion.";
+            }
         }
         
         function cargarProvincias(){
@@ -484,6 +623,16 @@
             
             foreach ($result as $row_provincia){
                 echo '<option value="'.$row_provincia->IdProvincia.'">'.$row_provincia->Nombre.'</option>';
+            }
+        }
+        
+        function cargarCuadrantes(){
+            $zona = $this->input->post("zona");
+            
+            $result = $this->Admin_model->getCuadrantesById($zona);
+            
+            foreach ($result as $row_cuadrante){
+                echo '<option value="'.$row_cuadrante->idcuadrante.'">'.$row_cuadrante->strnombrecuadrante.'</option>';
             }
         }
         
@@ -507,5 +656,53 @@
             }
             return $relleno . $entero;
         }
+        
+        function doUpload($product,$i,$files, $dir, $kind, $size = NULL, $width = NULL, $height = NULL, $name = NULL){
+            unset($config);
+            if($name != NULL){ 	 $config['file_name']  = $name; 	}
+            if($size != NULL){ 	 $config['max_size']   = $size; 	}
+            if($width != NULL){  $config['max_width']  = $width; 	}
+            if($height != NULL){ $config['max_height'] = $height; 	}
+            $config['image_library']  = 'gd2';
+            $config['upload_path']   = './'.$dir.'/';
+            $config['allowed_types'] = $kind;
+            $config['overwrite']     = FALSE;
+            $config['remove_spaces'] = TRUE;
+            $config['encrypt_name']     = 'TRUE';
+
+            $this->load->library('upload',$config);
+
+            if(!empty($files['name'])){
+	        if(!$upload = $this->upload->do_upload('imagen'.$i)){    
+                    return 0;
+		}else{
+                    $data =array('data' =>$this->upload->data());
+                    return $data;
+                }
+            }
+	}
+        
+        function delete($dir,$file,$image = NULL)
+	{
+		$return = array();
+		$archivo1  = './'.$dir.'/'.$file;
+                $thumb = explode('.', $file);
+                $archivo2  = './'.$dir.'/thumbnails/'.$thumb[0]."_thumb.".$thumb[1];
+		if (file_exists($archivo1)) {
+		    if(unlink($archivo1)){
+		    	$return[0] = TRUE; 
+		    } else {
+		    	$return[0] = FALSE; 
+		    }
+		}
+		if (file_exists($archivo2)) {
+		    if(unlink($archivo2)){
+		    	$return[1] = TRUE; 
+		    } else {
+		    	$return[2] = FALSE; 
+		    }
+		}
+                return TRUE;
+	}
     }
 ?>

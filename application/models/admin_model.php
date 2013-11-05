@@ -88,5 +88,84 @@
             
             return $result;
         }
+        
+        function deleteTipoIncidente($tipoincidente){
+            $this->db->where("idtipoincidente",$tipoincidente);
+            $result = $this->db->delete("tipo_incidente");
+            
+            return $result;
+        }
+        
+        function insertTipoIncidente($image,$id,$descripcion){
+            $result = $this->db->insert("tipo_incidente",array("idtipoincidente"=>$id, "strtipoincidente" => $descripcion, "imgtipoincidente" => $image));
+            
+            return $result;
+        }
+        
+        function extractImagesTipoIncidente($tipoincidente){
+            $this->db->select("imgtipoincidente");
+            $this->db->where("idtipoincidente",$tipoincidente);
+            $result = $this->db->get("tipo_incidente")->result();
+            
+            return $result;
+        }
+        
+        function editTipoIncidente($data,$id){
+            $this->db->where("idtipoincidente",$id);
+            $result = $this->db->update("tipo_incidente",$data);
+            
+            return $result;
+        }
+        
+        function insertCuadrante($id,$zona,$cuadrante){
+            $result = $this->db->insert("cuadrante",array("idcuadrante" => $id, "strnombrecuadrante" => $cuadrante, "idzona" => $zona));
+            
+            return $result;
+        }
+        
+        function getCuadrantes(){
+            $this->db->select("a.idzona,a.strnombrezona,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito,e.strnombrecuadrante,e.idcuadrante");
+            $this->db->where("e.idzona = a.idzona and a.IdDepartamento = CONVERT(b.IdDepartamento using utf8) collate utf8_unicode_ci and a.IdProvincia = CONVERT(c.IdProvincia using utf8) collate utf8_unicode_ci and a.IdDistrito = d.IdDistrito");
+            $this->db->order_by("e.idcuadrante","asc");
+            $result = $this->db->get("cuadrante e, zona a, departamento b, provincia c, distrito d")->result();
+            
+            return $result;
+        }
+        
+        function modifyCuadrante($id,$cuadrante,$zona){
+            $this->db->where("idcuadrante",$id);
+            $result = $this->db->update("cuadrante",array("strnombrecuadrante" => $cuadrante, "idzona" => $zona));
+            
+            return $result;
+        }
+        
+        function deleteCuadrante($cuadrante){
+            $this->db->where("idcuadrante",$cuadrante);
+            $result = $this->db->delete("cuadrante");
+            
+            return $result;
+        }
+        
+        function getCuadrantesById($zona){
+            $this->db->where("idzona",$zona);
+            $result = $this->db->get("cuadrante")->result();
+            
+            return $result;
+        }
+        
+        function insertUrbanizacion($id,$urbanizacion,$zona,$cuadrante){
+            $result = $this->db->insert("urbanizacion",array("idurbanizacion" => $id, "strnombreurbanizacion" => $urbanizacion, "idzona" => $zona, "idcuadrante" => $cuadrante));
+            
+            return $result;
+        }
+        
+        function getUrbanizaciones(){
+            $this->db->select("a.idzona,a.strnombrezona,b.Nombre as region, c.Nombre as provincia, d.Nombre as distrito,e.strnombrecuadrante,e.idcuadrante,f.idurbanizacion,f.strnombreurbanizacion");
+            $this->db->where("f.idcuadrante = e.idcuadrante and f.idzona = a.idzona and a.IdDepartamento = CONVERT(b.IdDepartamento using utf8) collate utf8_unicode_ci and a.IdProvincia = CONVERT(c.IdProvincia using utf8) collate utf8_unicode_ci and a.IdDistrito = d.IdDistrito");
+            $this->db->order_by("e.idcuadrante","asc");
+            $result = $this->db->get("urbanizacion f, cuadrante e, zona a, departamento b, provincia c, distrito d")->result();
+            
+            return $result;
+        }
     }
 ?>
