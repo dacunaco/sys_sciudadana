@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2013-10-28 20:51:15
+Date: 2013-11-05 17:15:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('e5b56cbd2f2a1f23b727391833891954', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', '1383011128', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
+INSERT INTO `ci_sessions` VALUES ('1b2e9e6d3b5a194ccbc732402e78c8ce', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', '1383689560', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
 
 -- ----------------------------
 -- Table structure for `cuadrante`
@@ -48,6 +48,9 @@ CREATE TABLE `cuadrante` (
 -- ----------------------------
 -- Records of cuadrante
 -- ----------------------------
+INSERT INTO `cuadrante` VALUES ('CD000000001', 'Cuadrante 1', 'ZN000000001');
+INSERT INTO `cuadrante` VALUES ('CD000000002', 'Cuadrante 2', 'ZN000000001');
+INSERT INTO `cuadrante` VALUES ('CD000000003', 'Cuadrante 3', 'ZN000000002');
 
 -- ----------------------------
 -- Table structure for `departamento`
@@ -1984,7 +1987,7 @@ CREATE TABLE `incidente` (
   KEY `incidente_personal_fk` (`idpersonal`),
   KEY `incidente_tipo_incidente_fk` (`idtipoincidente`),
   CONSTRAINT `incidente_entidad_fk` FOREIGN KEY (`identidad`) REFERENCES `entidad` (`identidad`),
-  CONSTRAINT `incidente_personal_fk` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`idpersonal`),
+  CONSTRAINT `incidente_personal_fk` FOREIGN KEY (`idpersonal`) REFERENCES `trabajador` (`idtrabajador`),
   CONSTRAINT `incidente_tipo_incidente_fk` FOREIGN KEY (`idtipoincidente`) REFERENCES `tipo_incidente` (`idtipoincidente`),
   CONSTRAINT `incidente_zona_fk` FOREIGN KEY (`idzona`) REFERENCES `zona` (`idzona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2026,35 +2029,15 @@ INSERT INTO `perfil_usuario` VALUES ('2', 'USUARIO');
 INSERT INTO `perfil_usuario` VALUES ('3', 'CONTRIBUYENTE');
 
 -- ----------------------------
--- Table structure for `personal`
--- ----------------------------
-DROP TABLE IF EXISTS `personal`;
-CREATE TABLE `personal` (
-  `idpersonal` char(11) NOT NULL,
-  `strnombres` varchar(100) NOT NULL,
-  `strapellidopaterno` varchar(50) NOT NULL,
-  `strapellidomaterno` varchar(50) NOT NULL,
-  `strdni` char(8) NOT NULL,
-  `strsexo` char(1) NOT NULL,
-  `datfechanacimiento` datetime NOT NULL,
-  `strcodigo` varchar(10) NOT NULL,
-  PRIMARY KEY (`idpersonal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of personal
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `provincia`
 -- ----------------------------
 DROP TABLE IF EXISTS `provincia`;
 CREATE TABLE `provincia` (
-  `IdProvincia` char(8) COLLATE utf8_spanish_ci NOT NULL,
-  `Nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `IdDepartamento` char(8) COLLATE utf8_spanish_ci NOT NULL,
+  `IdProvincia` char(8) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `Nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `IdDepartamento` char(8) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`IdProvincia`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of provincia
@@ -2256,20 +2239,6 @@ INSERT INTO `provincia` VALUES ('pro00194', 'Padre Abad', 'dep00024');
 INSERT INTO `provincia` VALUES ('pro00195', 'Purus', 'dep00024');
 
 -- ----------------------------
--- Table structure for `region`
--- ----------------------------
-DROP TABLE IF EXISTS `region`;
-CREATE TABLE `region` (
-  `idregion` char(11) NOT NULL,
-  `strnombreregion` varchar(50) NOT NULL,
-  PRIMARY KEY (`idregion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of region
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `tipo_incidente`
 -- ----------------------------
 DROP TABLE IF EXISTS `tipo_incidente`;
@@ -2282,6 +2251,28 @@ CREATE TABLE `tipo_incidente` (
 
 -- ----------------------------
 -- Records of tipo_incidente
+-- ----------------------------
+INSERT INTO `tipo_incidente` VALUES ('TI000000001', 'Tipo de Incidente 1', 'b404831fdfab58e410e09b2752462e94.png');
+
+-- ----------------------------
+-- Table structure for `trabajador`
+-- ----------------------------
+DROP TABLE IF EXISTS `trabajador`;
+CREATE TABLE `trabajador` (
+  `idtrabajador` char(11) NOT NULL,
+  `strnombres` varchar(100) NOT NULL,
+  `strapellidopaterno` varchar(50) NOT NULL,
+  `strapellidomaterno` varchar(50) NOT NULL,
+  `strdireccion` varchar(100) NOT NULL,
+  `strdni` char(8) NOT NULL,
+  `strsexo` char(1) NOT NULL,
+  `datfechanacimiento` datetime NOT NULL,
+  `strcodigo` varchar(10) NOT NULL,
+  PRIMARY KEY (`idtrabajador`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of trabajador
 -- ----------------------------
 
 -- ----------------------------
@@ -2299,6 +2290,7 @@ CREATE TABLE `urbanizacion` (
 -- ----------------------------
 -- Records of urbanizacion
 -- ----------------------------
+INSERT INTO `urbanizacion` VALUES ('UR000000001', 'Urbanizacion 1', 'CD000000002', 'ZN000000001');
 
 -- ----------------------------
 -- Table structure for `usuario`
@@ -2339,6 +2331,5 @@ CREATE TABLE `zona` (
 -- ----------------------------
 -- Records of zona
 -- ----------------------------
-INSERT INTO `zona` VALUES ('ZN000000001', 'sdasd3', 'dis00389', 'pro00038', '0');
-INSERT INTO `zona` VALUES ('ZN000000002', '123qdasd', 'dis00372', 'pro00037', '0');
-INSERT INTO `zona` VALUES ('ZN000000003', 'asdasd1213', 'dis00055', 'pro00005', '0');
+INSERT INTO `zona` VALUES ('ZN000000001', 'Zona 1', 'dis00577', 'pro00059', 'dep00006');
+INSERT INTO `zona` VALUES ('ZN000000002', 'Zona 2', 'dis00475', 'pro00047', 'dep00005');
