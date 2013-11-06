@@ -153,16 +153,19 @@
             }  
         }
         
-        function nuevo_incidente(){
+        function nuevo_incidente($coordenadas = NULL){
             if($this->session->userdata('user_data')){
                 $data = array(
                     'foto' => $this->session->userdata['user_data']['user_foto'],
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'zonas' => $this->db->get("zona")->result(),
+                    'tipoincidentes' => $this->db->get("tipo_incidente")->result()
                 );
                 
+                $data['coordenadas'] = $coordenadas;
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_newIncidente');
                 $this->load->view('admin/footer');
@@ -255,7 +258,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'trabajadores' => $this->db->get("trabajador")->result()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -666,15 +670,111 @@
             
             $data_insert = array(
                 'idtrabajador' => $idtrabajador,
-                'strnombres' => $this->input->post("nombres"),
-                'strapellidopaterno' => $this->input->post("apellidopaterno"),
-                'strapellidomaterno' => $this->input->post("apellidomaterno"),
+                'strnombres' => strtoupper($this->input->post("nombres")),
+                'strapellidopaterno' => strtoupper($this->input->post("apellidopaterno")),
+                'strapellidomaterno' => strtoupper($this->input->post("apellidomaterno")),
                 'strdireccion' => $this->input->post("direccion"),
                 'strdni' => $this->input->post("dni"),
                 'strsexo' => $this->input->post("sexo"),
-                'datfechanacimiento' => $this->input->post("fechanacimiento"),
+                'strtelefono' => $this->input->post("telefono"),
+                'datfechanacimiento' => date("Y-m-d H:i:s",  strtotime($this->input->post("fechanacimiento"))),
                 'strcodigo' => $this->input->post("codigo")
             );
+            
+            $result = $this->Admin_model->insertTrabajador($data_insert);
+            
+            if($result){
+                echo "Se insertó correctamente el trabajador.";
+            }
+        }
+        
+        function deleteTrabajador(){
+            $trabajador = $this->input->post("trabajador");
+            
+            $result = $this->Admin_model->deleteTrabajador($trabajador);
+            
+            if($result){
+                echo "Se eliminó correctamente el trabajador.";
+            } 
+        }
+        
+        function editar_trabajador(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['trabajador'] = $this->db->get_where("trabajador",array("idtrabajador" => $this->input->get("tid")))->result();
+            
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_editTrabajador');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function editTrabajador(){            
+            $data_insert = array(
+                'strnombres' => strtoupper($this->input->post("nombres")),
+                'strapellidopaterno' => strtoupper($this->input->post("apellidopaterno")),
+                'strapellidomaterno' => strtoupper($this->input->post("apellidomaterno")),
+                'strdireccion' => $this->input->post("direccion"),
+                'strdni' => $this->input->post("dni"),
+                'strsexo' => $this->input->post("sexo"),
+                'strtelefono' => $this->input->post("telefono"),
+                'datfechanacimiento' => date("Y-m-d H:i:s",  strtotime($this->input->post("fechanacimiento"))),
+                'strcodigo' => $this->input->post("codigo")
+            );
+            
+            $result = $this->Admin_model->editTrabajador($data_insert,  $this->input->post("id"));
+            
+            if($result){
+                echo "Se modificó correctamente el trabajador.";
+            }
+        }
+        
+        function get_coordenadas(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $this->load->library('googlemaps');
+
+                $config['center'] = '-8.112,-79.0288';
+                $config['zoom'] = 14;
+                $config['map_div_id'] = 'map';
+                $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
+                $config['places'] = TRUE;
+                $this->googlemaps->initialize($config);
+                
+                $marker = array();
+                $marker['position'] = '-8.112,-79.0288';
+                $marker['draggable'] = true;
+                $marker['ondragend'] = 'document.getElementById("coordenadas").value = event.latLng.lat() + \', \' + event.latLng.lng();';
+                $this->googlemaps->add_marker($marker);
+                
+                $data['map'] = $this->googlemaps->create_map();
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_getMap');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function post_coordenadas(){
+            $this->nuevo_incidente($this->input->post("coordenadas"));
         }
         
         function listado_reportes(){
@@ -700,6 +800,7 @@
             
             $result = $this->Admin_model->getProvincias($departamento);
             
+            echo '<option value="">Seleccione una provincia</option>';
             foreach ($result as $row_provincia){
                 echo '<option value="'.$row_provincia->IdProvincia.'">'.$row_provincia->Nombre.'</option>';
             }
@@ -710,8 +811,20 @@
             
             $result = $this->Admin_model->getCuadrantesById($zona);
             
+            echo '<option value="">Seleccione un cuadrante</option>';
             foreach ($result as $row_cuadrante){
                 echo '<option value="'.$row_cuadrante->idcuadrante.'">'.$row_cuadrante->strnombrecuadrante.'</option>';
+            }
+        }
+        
+        function cargarUrbanizaciones(){
+            $cuadrante = $this->input->post("cuadrante");
+            
+            $result = $this->Admin_model->getUrbanizacionesById($cuadrante);
+            
+            echo '<option value="">Seleccione una urbanización</option>';
+            foreach ($result as $row_urbanizacion){
+                echo '<option value="'.$row_urbanizacion->idurbanizacion.'">'.$row_urbanizacion->strnombreurbanizacion.'</option>';
             }
         }
         
@@ -720,6 +833,7 @@
             
             $result = $this->Admin_model->getDistritos($provincia);
             
+            echo '<option value="">Seleccione un distrito</option>';
             foreach ($result as $row_distrito){
                 echo '<option value="'.$row_distrito->IdDistrito.'">'.$row_distrito->Nombre.'</option>';
             }

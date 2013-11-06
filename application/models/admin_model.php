@@ -153,6 +153,13 @@
             return $result;
         }
         
+        function getUrbanizacionesById($cuadrante){
+            $this->db->where("idcuadrante",$cuadrante);
+            $result = $this->db->get("urbanizacion")->result();
+            
+            return $result;
+        }
+        
         function insertUrbanizacion($id,$urbanizacion,$zona,$cuadrante){
             $result = $this->db->insert("urbanizacion",array("idurbanizacion" => $id, "strnombreurbanizacion" => $urbanizacion, "idzona" => $zona, "idcuadrante" => $cuadrante));
             
@@ -178,6 +185,26 @@
         function modifyUrbanizacion($id,$urbanizacion,$cuadrante,$zona){
             $this->db->where("idurbanizacion",$id);
             $result = $this->db->update("urbanizacion",array("strnombreurbanizacion" => $urbanizacion, "idcuadrante" =>$cuadrante, "idzona" => $zona));
+            
+            return $result;
+        }
+        
+        function insertTrabajador($data){
+            $result = $this->db->insert("trabajador",$data);
+            
+            return $result;
+        }
+        
+        function deleteTrabajador($trabajador){
+            $this->db->where("idtrabajador",$trabajador);
+            $result = $this->db->delete("trabajador");
+            
+            return $result;
+        }
+        
+        function editTrabajador($data,$trabajador){
+            $this->db->where("idtrabajador",$trabajador);
+            $result = $this->db->update("trabajador",$data);
             
             return $result;
         }

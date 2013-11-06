@@ -48,7 +48,7 @@
                                 <input type="file" id="imagen0" name="imagen0" class="validate[required]" />
                         </div><div class="clear"></div>
                     </div>
-                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" /></div>
+                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" id="submit" /></div>
                     <div class="clear"></div>
                 </div>
             </fieldset>

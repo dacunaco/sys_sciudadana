@@ -1,4 +1,27 @@
-
+<script>
+    function eliminarTrabajador(trabajador){
+        var r=confirm("¿Realmente desea eliminar el trabajador?");
+        if (r==true){
+          $.ajax({
+                url: "<?= base_url()?>admin/deleteTrabajador",
+                type: "post",
+                data: "trabajador="+trabajador,
+                success: function(data){
+                    $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                    window.setTimeout(function () {
+                        location.href = "<?= base_url()?>admin/listado_trabajadores";
+                    }, 1500);
+                },
+                beforeSend: function(){
+                    $("#waiting").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                },
+                error:function(){
+                    $("#waiting").html('Hubo un error mientras se eliminaba los datos.');
+                }
+            });
+        }
+    }
+</script>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
@@ -26,21 +49,29 @@
             <th>Apellidos</th>
             <th>Dirección</th>
             <th>DNI</th>
+            <th>Sexo</th>
             <th>Teléfono</th>
             <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            <!--<tr class="gradeA">
-            <td>Trident</td>
-            <td>Internet
-            Explorer 4.0</td>
-            <td>Win 95+</td>
-            <td class="center">
-                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
-                <a href="#" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
-            </td>
-            </tr>-->
+                <?php
+                    foreach ($trabajadores as $row_trabajador){?>
+                        <tr class="gradeA">
+                            <td align="center"><?= $row_trabajador->strcodigo?></td>
+                            <td align="center"><?= $row_trabajador->strnombres?></td>
+                            <td align="center"><?= $row_trabajador->strapellidopaterno?> <?= $row_trabajador->strapellidomaterno?></td>
+                            <td align="center"><?= $row_trabajador->strdireccion?></td>
+                            <td align="center"><?= $row_trabajador->strdni?></td>
+                            <td align="center"><?= $row_trabajador->strsexo?></td>
+                            <td align="center"><?= $row_trabajador->strtelefono?></td>
+                            <td class="center">
+                                <a href="<?= base_url()?>admin/editar_trabajador?tid=<?= $row_trabajador->idtrabajador?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
+                                <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminarTrabajador('<?= $row_trabajador->idtrabajador?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
+                            </td>
+                        </tr>
+                    <?php }
+                ?>
             </tbody>
             </table>  
         </div>

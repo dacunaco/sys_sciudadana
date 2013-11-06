@@ -103,57 +103,6 @@
             <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Mapa principal de ubigeo de las incidencias registradas.</h6></div>
                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td align="center">
-                            <!--<div class="legend" style="margin: 0 auto; width: 100%;overflow: hidden;margin-left: 20%; margin-top: 20px;">
-                                <img src="<?= base_url()?>assets/images/icon-alta.png" width="60" style="float:left;">
-                                <div class="t-legend" style="float:left;text-align: center; line-height: 15px;margin-top: 10px;margin-left: -5px;">
-                                    <span style="font-size: 14px;">Peligrosidad Alta</span><br />
-                                    <?php
-                                         $i = 0;
-                                         foreach ($alta as $row){
-                                             $i++;
-                                         }
-                                    ?>
-                                    <a href='<?= base_url()?>main/listIncidenciasById?iid=1'><span style="font-size: 12px;">(<?=$i?>)</span></a>
-                                </div>
-                                <img src="<?= base_url()?>assets/images/icon-media.png" width="60" style="float:left;">
-                                <div class="t-legend" style="float:left;text-align: center; line-height: 15px;margin-top: 10px;margin-left: -5px;">
-                                    <span style="font-size: 14px;">Peligrosidad Media</span><br />
-                                    <?php
-                                         $i = 0;
-                                         foreach ($media as $row){
-                                             $i++;
-                                         }
-                                    ?>
-                                    <a href='<?= base_url()?>main/listIncidenciasById?iid=2'><span style="font-size: 12px;">(<?=$i?>)</span></a>
-                                </div>
-                                <img src="<?= base_url()?>assets/images/icon-baja.png" width="60" style="float:left;">
-                                <div class="t-legend" style="float:left;text-align: center; line-height: 15px;margin-top: 10px;margin-left: -5px;">
-                                    <span style="font-size: 14px;">Peligrosidad Baja</span><br />
-                                    <?php
-                                         $i = 0;
-                                         foreach ($baja as $row){
-                                             $i++;
-                                         }
-                                    ?>
-                                    <a href='<?= base_url()?>main/listIncidenciasById?iid=3'><span style="font-size: 12px;">(<?=$i?>)</span></a>
-                                </div>
-                                <img src="<?= base_url()?>assets/images/icon-clear.png" width="60" style="float:left;">
-                                <div class="t-legend" style="float:left;text-align: center; line-height: 15px;margin-top: 10px;margin-left: -5px;">
-                                    <span style="font-size: 14px;">Sin Peligrosidad</span><br />
-                                    <?php
-                                         $i = 0;
-                                         foreach ($cero as $row){
-                                             $i++;
-                                         }
-                                    ?>
-                                    <a href='<?= base_url()?>main/listIncidenciasById?iid=4'><span style="font-size: 12px;">(<?=$i?>)</span></a>
-                                </div>
-                                <p style="clear: both"></p>
-                            </div>-->
-                        </td>
-                    </tr>
-                    <tr>
                         <td width="95%" align="center" style="padding-bottom: 20px;">
                             <div id="map" class="map" style="width: 95%;"><?php echo $map['html']; ?></div>
                         </td>
