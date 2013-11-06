@@ -38,7 +38,9 @@
     <div class="wrapper">
         <!-- Form -->
         <!-- Dynamic table -->
+        <a href="<?= base_url()?>admin/nuevo_cuadrante" title="" class="sButton sBlue" style="margin-top: 12px;"><img src="<?= base_url()?>assets/images/icons/sPlus.png" alt="" /><span>Regisrar Cuadrante</span></a>
         <div class="widget">
+            
             <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/full2.png" alt="" class="titleIcon" /><h6>Listado de Cuadrantes</h6><div id="waiting" style="margin-top: 8px;float: left;"></div></div>                          
             <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
             <thead>

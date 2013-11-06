@@ -677,6 +677,24 @@
             );
         }
         
+        function listado_reportes(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportes');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
         function cargarProvincias(){
             $departamento = $this->input->post("departamento");
             

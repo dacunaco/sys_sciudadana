@@ -80,33 +80,21 @@
     <!-- Left navigation -->
     <ul id="menu" class="nav">
         <li class="dash"><a href="index.html" title="" class="active"><span>Página Principal</span></a></li>
-        <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>10</strong></a>
+        <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>5</strong></a>
             <ul class="sub">
-                <li class="last"><a href="<?= base_url()?>admin/listado_tipo_incidente" title="">Lista Tipos de Incidentes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nuevo_tipo_incidente" title="">Registrar Tipos de Incidentes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/listado_zonas" title="">Lista de Zonas</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nueva_zona" title="">Registrar Zonas</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/listado_cuadrantes" title="">Lista de Cuadrantes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nuevo_cuadrante" title="">Registrar Cuadrantes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/listado_urbanizaciones" title="">Lista de Urbanizaciones</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nueva_urbanizacion" title="">Registrar Urbanizaciones</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/listado_trabajadores" title="">Lista de Trabajadores</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/nuevo_trabajador" title="">Registrar Trabajador</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_tipo_incidente" title="">Tipos de Incidentes</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_zonas" title="">Zonas</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_cuadrantes" title="">Cuadrantes</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_urbanizaciones" title="">Urbanizaciones</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_trabajadores" title="">Trabajadores</a></li>
                 
             </ul>
         </li>
-        <li class="tables"><a href="#" title="" class="exp"><span>Operaciones</span><strong>10</strong></a>
+        <li class="tables"><a href="#" title="" class="exp"><span>Operaciones</span><strong>3</strong></a>
             <ul class="sub">
-                <li class="last"><a href="<?= base_url()?>admin/nuevo_incidente" title="">Registrar Incidente</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/listado_incidentes" title="">Lista Incidentes</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_incidentes" title="">Incidente</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/buscar_incidente" title="">Buscar Incidentes</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente" title="">Reporte por Tipo de Incidente</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona" title="">Reporte por Zona y Tipo de Incidente</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona_estado" title="">Reporte por Zona, Tipo de Incidente y Estado Actual</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/reporte_tipo_incidente_zona_urbanizacion" title="">Reporte por Zona, Tipo de Incidente y Urbanización</a></li>
-                <li class="last"><a href="#" title="">Reporte por Totales Anuales y Mensuales</a></li>
-                <li class="last"><a href="#" title="">Reporte en Mapa por Tipo y Zona</a></li>
-                <li class="last"><a href="#" title="">Reporte Gráfico</a></li>
+                <li class="last"><a href="<?= base_url()?>admin/listado_reportes" title="">Reportes Dinámicos</a></li>
                 
             </ul>
         </li>
