@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2013-11-05 17:15:38
+Date: 2013-11-06 17:53:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('1b2e9e6d3b5a194ccbc732402e78c8ce', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', '1383689560', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
+INSERT INTO `ci_sessions` VALUES ('28b105196d4460530715613f61fd104d', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', '1383774252', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
 
 -- ----------------------------
 -- Table structure for `cuadrante`
@@ -2268,12 +2268,14 @@ CREATE TABLE `trabajador` (
   `strsexo` char(1) NOT NULL,
   `datfechanacimiento` datetime NOT NULL,
   `strcodigo` varchar(10) NOT NULL,
+  `strtelefono` varchar(20) NOT NULL,
   PRIMARY KEY (`idtrabajador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of trabajador
 -- ----------------------------
+INSERT INTO `trabajador` VALUES ('TB000000001', 'DAVIS', 'ASDAS', 'DASDASDASD', 'sadasd', '12312312', 'M', '2013-11-13 00:00:00', '123123', '123213');
 
 -- ----------------------------
 -- Table structure for `urbanizacion`
