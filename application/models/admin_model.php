@@ -208,5 +208,11 @@
             
             return $result;
         }
+        
+        function insertIncidente($data){
+            $result = $this->db->insert("incidente",$data);
+            
+            return $result;
+        }
     }
 ?>

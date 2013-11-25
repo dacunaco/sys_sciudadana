@@ -15,11 +15,6 @@
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
-                /*$data['alta'] = $this->Main_model->getIncidenciaByState(1);
-                $data['media'] = $this->Main_model->getIncidenciaByState(2);
-                $data['baja'] = $this->Main_model->getIncidenciaByState(3);
-                $data['cero'] = $this->Main_model->getIncidenciaByState(4);
-                $incidencias = $this->Main_model->getIndicencias();*/
         
                 $this->load->library('googlemaps');
 
@@ -29,25 +24,23 @@
                 $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
                 $config['places'] = TRUE;
                 $this->googlemaps->initialize($config);
-
-                /*foreach ($incidencias as $row){
-                    $co = str_replace("(", "", $row->coordenadas);
-                    $se = explode(",", $co);
+                
+                $mapa_principal = $this->db->get("incidente")->result();
+                
+                foreach ($mapa_principal as $row_mapa_principal){
                     $marker = array();
-                    $marker['position'] = $se[0].','.$se[1];
-                    $marker['infowindow_content'] = $row->nombres;
-                    if($row->estado == "1"){
-                        $marker['icon'] = base_url().'assets/images/icon-alta-resize.png';
-                    }else if($row->estado == "2"){
-                        $marker['icon'] = base_url().'assets/images/icon-media-resize.png';
-                    }else if($row->estado == "3"){
-                        $marker['icon'] = base_url().'assets/images/icon-baja-resize.png';
-                    }else if($row->estado == "4"){
-                        $marker['icon'] = base_url().'assets/images/icon-clear-resize.png';
+                    $marker['position'] = $row_mapa_principal->strcoordenadasincidente;
+                    $marker['infowindow_content'] = $row_mapa_principal->strdescripcionincidente;
+                    
+                    $marcador = $this->db->get_where("tipo_incidente",array("idtipoincidente" => $row_mapa_principal->idtipoincidente))->result();
+                    
+                    foreach ($marcador as $row_marcador){
+                        $marker['icon'] = base_url().'assets/images/tipo-incidente/'.$row_marcador->imgtipoincidente;
                     }
+                    
                     $marker['animation'] = 'BOUNCE';
                     $this->googlemaps->add_marker($marker);
-                }*/        
+                }   
 
                 $data['map'] = $this->googlemaps->create_map();
                 
@@ -166,6 +159,7 @@
                 );
                 
                 $data['coordenadas'] = $coordenadas;
+                $data['trabajadores'] = $this->db->get('trabajador')->result();
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_newIncidente');
                 $this->load->view('admin/footer');
@@ -280,6 +274,19 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $this->load->library('googlemaps');
+
+                $config['center'] = '-8.112,-79.0288';
+                $config['zoom'] = 14;
+                $config['map_div_id'] = 'map';
+                $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
+                $config['places'] = TRUE;
+                $this->googlemaps->initialize($config);
+
+
+                $data['map'] = $this->googlemaps->create_map();
+                
+                $data['incidentes'] = $this->db->get_where('incidente',"strestadoincidente <> 'E' ")->result();
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_listIncidente');
                 $this->load->view('admin/footer');
@@ -777,6 +784,32 @@
             $this->nuevo_incidente($this->input->post("coordenadas"));
         }
         
+        function newIncidente(){
+            $count = $this->db->get("incidente")->num_rows();
+            $idincidente = "IN".$this->zerofill($count + 1, 9);
+            
+            $data_insert = array(
+                'idincidente' => $idincidente,
+                'strdescripcionincidente' => $this->input->post('descripcion'),
+                'strcoordenadasincidente' => $this->input->post('coordenadas'),
+                'strestadoincidente' => 'P',
+                'datfechahoraincidente' => date('y-m-d', strtotime($this->input->post('fecha')))." ".  date('H:i:s', strtotime($this->input->post('hora'))),
+                'datfechahoraregistroincidente' => date('Y-m-d H:i:s'),
+                'imgincidente' => "",
+                'idzona' => $this->input->post('zona'),
+                'idtrabajador' => $this->input->post('trabajador'),
+                'idtipoincidente' => $this->input->post('tipoincidente'),
+                'idcuadrante' => $this->input->post('cuadrante'),
+                'idurbanizacion' => $this->input->post('urbanizacion')
+            );
+            
+            $result = $this->Admin_model->insertIncidente($data_insert);
+            
+            if($result){
+                echo "Se insertó correctamente el incidente.";
+            }
+        }
+        
         function listado_reportes(){
             if($this->session->userdata('user_data')){
                 $data = array(
@@ -793,6 +826,22 @@
             }else{
                 redirect('user');
             }  
+        }
+        
+        function get_mapa_incidencia(){
+            $this->load->library('googlemaps');
+
+            $config['center'] = '-8.112,-79.0288';
+            $config['zoom'] = 14;
+            $config['map_div_id'] = 'map';
+            $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
+            $config['places'] = TRUE;
+            $this->googlemaps->initialize($config);
+                      
+            
+            $data['map'] = $this->googlemaps->create_map();
+                
+            $this->load->view('admin/view_map_incidencia',$data);
         }
         
         function cargarProvincias(){

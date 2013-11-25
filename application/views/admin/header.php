@@ -79,7 +79,7 @@
     
     <!-- Left navigation -->
     <ul id="menu" class="nav">
-        <li class="dash"><a href="index.html" title="" class="active"><span>Página Principal</span></a></li>
+        <li class="dash"><a href="<?= base_url()?>" title="" class="active"><span>Página Principal</span></a></li>
         <li class="forms"><a href="#" title="" class="exp"><span>Mantenedores</span><strong>5</strong></a>
             <ul class="sub">
                 <li class="last"><a href="<?= base_url()?>admin/listado_tipo_incidente" title="">Tipos de Incidentes</a></li>

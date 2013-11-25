@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2013-11-06 17:53:50
+Date: 2013-11-21 17:44:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,11 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('28b105196d4460530715613f61fd104d', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', '1383774252', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
+INSERT INTO `ci_sessions` VALUES ('3403caa0d958c50fdeedfd7bca63f536', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', '');
+INSERT INTO `ci_sessions` VALUES ('36a6a0075f0543d08c344ea036bc1f3f', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385073814', '');
+INSERT INTO `ci_sessions` VALUES ('6e4d7437985d754247769f315de7786f', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
+INSERT INTO `ci_sessions` VALUES ('a685a75e9d8225253a97b32dad5a9c17', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385072984', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
+INSERT INTO `ci_sessions` VALUES ('b7c5edc7c99233f8bf4d96a23ee2d960', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', '');
 
 -- ----------------------------
 -- Table structure for `cuadrante`
@@ -1951,21 +1955,6 @@ INSERT INTO `distrito` VALUES ('dis01824', 'Curimana', 'pro00194');
 INSERT INTO `distrito` VALUES ('dis01825', 'Purus', 'pro00195');
 
 -- ----------------------------
--- Table structure for `entidad`
--- ----------------------------
-DROP TABLE IF EXISTS `entidad`;
-CREATE TABLE `entidad` (
-  `identidad` char(11) NOT NULL,
-  `strnombreentidad` varchar(100) NOT NULL,
-  `strcodigoentidad` varchar(50) NOT NULL,
-  PRIMARY KEY (`identidad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of entidad
--- ----------------------------
-
--- ----------------------------
 -- Table structure for `incidente`
 -- ----------------------------
 DROP TABLE IF EXISTS `incidente`;
@@ -1978,23 +1967,24 @@ CREATE TABLE `incidente` (
   `datfechahoraregistroincidente` datetime NOT NULL,
   `imgincidente` varchar(100) NOT NULL,
   `idzona` char(11) NOT NULL,
-  `identidad` char(11) NOT NULL,
-  `idpersonal` char(11) NOT NULL,
+  `idtrabajador` char(11) NOT NULL,
   `idtipoincidente` char(11) NOT NULL,
+  `idcuadrante` char(11) NOT NULL,
+  `idurbanizacion` char(11) NOT NULL,
   PRIMARY KEY (`idincidente`),
   KEY `incidente_zona_fk` (`idzona`),
-  KEY `incidente_entidad_fk` (`identidad`),
-  KEY `incidente_personal_fk` (`idpersonal`),
   KEY `incidente_tipo_incidente_fk` (`idtipoincidente`),
-  CONSTRAINT `incidente_entidad_fk` FOREIGN KEY (`identidad`) REFERENCES `entidad` (`identidad`),
-  CONSTRAINT `incidente_personal_fk` FOREIGN KEY (`idpersonal`) REFERENCES `trabajador` (`idtrabajador`),
+  KEY `incidente_trabajador_fk` (`idtrabajador`) USING BTREE,
   CONSTRAINT `incidente_tipo_incidente_fk` FOREIGN KEY (`idtipoincidente`) REFERENCES `tipo_incidente` (`idtipoincidente`),
+  CONSTRAINT `incidente_trabjador_fk` FOREIGN KEY (`idtrabajador`) REFERENCES `trabajador` (`idtrabajador`),
   CONSTRAINT `incidente_zona_fk` FOREIGN KEY (`idzona`) REFERENCES `zona` (`idzona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of incidente
 -- ----------------------------
+INSERT INTO `incidente` VALUES ('IN000000001', 'sdsadadsad', '-8.101293400928514, -79.02167605285644', 'P', '2013-11-13 10:13:11', '2013-11-21 16:13:13', '', 'ZN000000001', 'TB000000001', 'TI000000001', 'CD000000002', 'UR000000001');
+INSERT INTO `incidente` VALUES ('IN000000002', '3324324sdsdsadsadasddasd', '-8.110725419818444, -79.05051516418456', 'P', '2013-11-13 17:41:05', '2013-11-21 23:41:21', '', 'ZN000000001', 'TB000000001', 'TI000000001', 'CD000000002', 'UR000000001');
 
 -- ----------------------------
 -- Table structure for `pais`
@@ -2010,6 +2000,22 @@ CREATE TABLE `pais` (
 -- Records of pais
 -- ----------------------------
 INSERT INTO `pais` VALUES ('pai00001', 'Perú');
+
+-- ----------------------------
+-- Table structure for `perfil_trabajador`
+-- ----------------------------
+DROP TABLE IF EXISTS `perfil_trabajador`;
+CREATE TABLE `perfil_trabajador` (
+  `idPerfilTrabajador` char(11) NOT NULL,
+  `strPerfilTrabajador` varchar(200) NOT NULL,
+  PRIMARY KEY (`idPerfilTrabajador`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of perfil_trabajador
+-- ----------------------------
+INSERT INTO `perfil_trabajador` VALUES ('PT000000001', 'AGENTE POLICIAL');
+INSERT INTO `perfil_trabajador` VALUES ('PT000000002', 'ESTADISTS');
 
 -- ----------------------------
 -- Table structure for `perfil_usuario`
@@ -2315,7 +2321,7 @@ CREATE TABLE `usuario` (
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
-INSERT INTO `usuario` VALUES ('1', 'admin', 'rl6JW-Jg3YjSl-FcgJvFdOWsslsR9Kp_lft3cxWIO3Y', 'DAVIS BRETTS', 'ACUÑA CORDOVA', '47850032', 'M', '', '1', '1');
+INSERT INTO `usuario` VALUES ('1', 'admin', 'rl6JW-Jg3YjSl-FcgJvFdOWsslsR9Kp_lft3cxWIO3Y', 'CESAR EDUARDO', 'IRRIBARREN OTINIANO', '40200737', 'M', '', '1', '1');
 
 -- ----------------------------
 -- Table structure for `zona`
@@ -2335,3 +2341,7 @@ CREATE TABLE `zona` (
 -- ----------------------------
 INSERT INTO `zona` VALUES ('ZN000000001', 'Zona 1', 'dis00577', 'pro00059', 'dep00006');
 INSERT INTO `zona` VALUES ('ZN000000002', 'Zona 2', 'dis00475', 'pro00047', 'dep00005');
+INSERT INTO `zona` VALUES ('ZN000000003', 'Zona 3', 'dis00273', 'pro00031', 'dep00003');
+INSERT INTO `zona` VALUES ('ZN000000004', 'Zona 4', 'dis00854', 'pro00086', 'dep00009');
+INSERT INTO `zona` VALUES ('ZN000000005', 'Zona 5 ', 'dis00462', 'pro00045', 'dep00005');
+INSERT INTO `zona` VALUES ('ZN000000006', 'Zona 6', 'dis00702', 'pro00071', 'dep00007');

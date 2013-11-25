@@ -216,7 +216,21 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" id="submit" /></div>
+                    <div class="formRow">
+                        <label>Trabajador:</label>
+                        <div class="formRight searchDrop">
+                            <select data-placeholder="Seleccione Trabajador..." class="chzn-select" style="width:400px;" tabindex="2" name="trabajador" id="trabajador">
+                            <?php
+                                foreach ($trabajadores as $row_trabajador){?>
+                                    <option value=""></option>
+                                    <option value="<?= $row_trabajador->idtrabajador?>"><?= $row_trabajador->strnombres." ".$row_trabajador->strapellidopaterno." ".$row_trabajador->strapellidomaterno?></option>
+                                <?php }
+                            ?>
+                        </select>
+                        </div>             
+                        <div class="clear"></div>
+                    </div>
+                    <div class="formSubmit"><input type="submit" value="Guardar" class="redB" id="submit" /><div id="resultados"></div></div>
                     <div class="clear"></div>
                 </div>
             </fieldset>
