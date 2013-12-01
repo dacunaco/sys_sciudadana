@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/sys_sciudadana/';
+$config['base_url']	= 'http://localhost:8080/sys_sciudadana/';
 
 /*
 |--------------------------------------------------------------------------
