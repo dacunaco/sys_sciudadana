@@ -33,6 +33,9 @@
                     sexo: {
                       required: true,  
                     },
+                    perfil:{
+                        required: true,
+                    },
                     fechanacimiento: {
                         required: true,
                     }
@@ -59,6 +62,9 @@
                     },
                     sexo:{
                         required: "Seleccione sexo",
+                    },
+                    perfil:{
+                        required: "Seleccione perfil",
                     },
                     fechanacimiento: {
                         required: "Seleccione fecha de nacimiento",
@@ -172,6 +178,24 @@
                                         
                                         echo form_dropdown("sexo", $data, $row_trabajador->strsexo);
                                     ?>         
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="formRow">
+                                <label>Perfil:<span class="req">*</span></label>
+                                <div class="formRight">
+                                    <select name="perfil" id="perfil">
+                                        <option value="">Seleccione un perfil</option>
+                                        <?php
+                                            foreach ($perfil as $row_perfil){
+                                                if($row_perfil->idPerfilTrabajador == $row_trabajador->idPerfilTrabajador){?>
+                                                    <option value="<?= $row_perfil->idPerfilTrabajador?>" selected="selected"><?= $row_perfil->strPerfilTrabajador?></option>
+                                                <?php  }else{?>
+                                                    <option value="<?= $row_perfil->idPerfilTrabajador?>"><?= $row_perfil->strPerfilTrabajador?></option>
+                                                <?php }
+                                             }
+                                        ?>
+                                    </select>           
                                 </div>
                                 <div class="formRight" id="waiting"></div>
                                 <div class="clear"></div>

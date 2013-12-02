@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2013-11-21 17:44:02
+Date: 2013-12-02 11:59:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,11 +32,7 @@ CREATE TABLE `ci_sessions` (
 -- ----------------------------
 -- Records of ci_sessions
 -- ----------------------------
-INSERT INTO `ci_sessions` VALUES ('3403caa0d958c50fdeedfd7bca63f536', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', '');
-INSERT INTO `ci_sessions` VALUES ('36a6a0075f0543d08c344ea036bc1f3f', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385073814', '');
-INSERT INTO `ci_sessions` VALUES ('6e4d7437985d754247769f315de7786f', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
-INSERT INTO `ci_sessions` VALUES ('a685a75e9d8225253a97b32dad5a9c17', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385072984', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"47850032\";s:9:\"user_name\";s:12:\"DAVIS BRETTS\";s:13:\"user_lastname\";s:14:\"ACUÑA CORDOVA\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
-INSERT INTO `ci_sessions` VALUES ('b7c5edc7c99233f8bf4d96a23ee2d960', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1385067653', '');
+INSERT INTO `ci_sessions` VALUES ('b2c16c97952da6135dace07f15fb2aa7', '::1', 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36', '1386003471', 'a:1:{s:9:\"user_data\";a:8:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_nick\";s:5:\"admin\";s:11:\"user_perfil\";s:1:\"1\";s:8:\"user_dni\";s:8:\"40200737\";s:9:\"user_name\";s:13:\"CESAR EDUARDO\";s:13:\"user_lastname\";s:19:\"IRRIBARREN OTINIANO\";s:8:\"user_sex\";s:1:\"M\";s:9:\"user_foto\";s:0:\"\";}}');
 
 -- ----------------------------
 -- Table structure for `cuadrante`
@@ -113,6 +109,11 @@ CREATE TABLE `detalle_incidente` (
 -- ----------------------------
 -- Records of detalle_incidente
 -- ----------------------------
+INSERT INTO `detalle_incidente` VALUES ('DI000000001', 'P', 'asdsad', '2013-12-01 10:51:21', 'IN000000001');
+INSERT INTO `detalle_incidente` VALUES ('DI000000002', 'P', 'sadsadasd', '2013-12-01 11:27:28', 'IN000000002');
+INSERT INTO `detalle_incidente` VALUES ('DI000000003', 'P', 'sadsadsad', '2013-12-02 11:28:32', 'IN000000002');
+INSERT INTO `detalle_incidente` VALUES ('DI000000004', 'C', 'sadsadsad1234qweq12213213', '2013-12-02 11:28:32', 'IN000000002');
+INSERT INTO `detalle_incidente` VALUES ('DI000000005', 'P', '213sadasd', '2013-12-01 11:32:56', 'IN000000001');
 
 -- ----------------------------
 -- Table structure for `distrito`
@@ -2275,13 +2276,14 @@ CREATE TABLE `trabajador` (
   `datfechanacimiento` datetime NOT NULL,
   `strcodigo` varchar(10) NOT NULL,
   `strtelefono` varchar(20) NOT NULL,
+  `idPerfilTrabajador` char(11) NOT NULL,
   PRIMARY KEY (`idtrabajador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of trabajador
 -- ----------------------------
-INSERT INTO `trabajador` VALUES ('TB000000001', 'DAVIS', 'ASDAS', 'DASDASDASD', 'sadasd', '12312312', 'M', '2013-11-13 00:00:00', '123123', '123213');
+INSERT INTO `trabajador` VALUES ('TB000000001', 'DAVIS', 'ASDAS', 'DASDASDASD', 'sadasd', '12312312', 'M', '2013-11-13 00:00:00', '123123', '123213', 'PT000000001');
 
 -- ----------------------------
 -- Table structure for `urbanizacion`

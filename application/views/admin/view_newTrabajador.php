@@ -30,6 +30,9 @@
                         required: true,
                         number: true,
                     },
+                    perfil:{
+                        required: true,
+                    },
                     sexo: {
                       required: true,  
                     },
@@ -59,6 +62,9 @@
                     },
                     sexo:{
                         required: "Seleccione sexo",
+                    },
+                    perfil:{
+                        required: "Seleccione perfil",
                     },
                     fechanacimiento: {
                         required: "Seleccione fecha de nacimiento",
@@ -167,7 +173,20 @@
                                 <option value="F">Femenino</option>
                             </select>           
                         </div>
-                        <div class="formRight" id="waiting"></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="formRow">
+                        <label>Perfil:<span class="req">*</span></label>
+                        <div class="formRight">
+                            <select name="perfil" id="perfil">
+                                <option value="">Seleccione un perfil</option>
+                                <?php
+                                    foreach ($perfil as $row_perfil){?>
+                                        <option value="<?= $row_perfil->idPerfilTrabajador?>"><?= $row_perfil->strPerfilTrabajador?></option>
+                                    <?php }
+                                ?>
+                            </select>           
+                        </div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">

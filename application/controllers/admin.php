@@ -135,7 +135,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'perfil' => $this->db->get('perfil_trabajador')->result()
                 );
                 
                 $this->load->view('admin/header',$data);
@@ -685,7 +686,8 @@
                 'strsexo' => $this->input->post("sexo"),
                 'strtelefono' => $this->input->post("telefono"),
                 'datfechanacimiento' => date("Y-m-d H:i:s",  strtotime($this->input->post("fechanacimiento"))),
-                'strcodigo' => $this->input->post("codigo")
+                'strcodigo' => $this->input->post("codigo"),
+                'idPerfilTrabajador' => $this->input->post("perfil")
             );
             
             $result = $this->Admin_model->insertTrabajador($data_insert);
@@ -712,7 +714,8 @@
                     'sexo' => $this->session->userdata['user_data']['user_sex'],
                     'nombres' => $this->session->userdata['user_data']['user_name'],
                     'apellidos' => $this->session->userdata['user_data']['user_lastname'],
-                    'dni' => $this->session->userdata['user_data']['user_dni']
+                    'dni' => $this->session->userdata['user_data']['user_dni'],
+                    'perfil' => $this->db->get("perfil_trabajador")->result()
                 );
                 
                 $data['trabajador'] = $this->db->get_where("trabajador",array("idtrabajador" => $this->input->get("tid")))->result();
@@ -735,7 +738,8 @@
                 'strsexo' => $this->input->post("sexo"),
                 'strtelefono' => $this->input->post("telefono"),
                 'datfechanacimiento' => date("Y-m-d H:i:s",  strtotime($this->input->post("fechanacimiento"))),
-                'strcodigo' => $this->input->post("codigo")
+                'strcodigo' => $this->input->post("codigo"),
+                'idPerfilTrabajador' => $this->input->post("perfil")
             );
             
             $result = $this->Admin_model->editTrabajador($data_insert,  $this->input->post("id"));
@@ -828,20 +832,45 @@
             }  
         }
         
-        function get_mapa_incidencia(){
-            $this->load->library('googlemaps');
-
-            $config['center'] = '-8.112,-79.0288';
-            $config['zoom'] = 14;
-            $config['map_div_id'] = 'map';
-            $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
-            $config['places'] = TRUE;
-            $this->googlemaps->initialize($config);
-                      
+        function get_detalle_incidente(){
+            $data['detalle'] = $this->db->get_where("detalle_incidente",array("idincidente" => $this->input->post("incidente")))->result();
             
-            $data['map'] = $this->googlemaps->create_map();
-                
-            $this->load->view('admin/view_map_incidencia',$data);
+            $this->load->view("admin/view_getDetalle",$data);
+        }
+        
+        function get_edit_detalle_incidente(){
+            $data['detalle'] = $this->db->get_where("detalle_incidente",array("iddetalleincidente" => $this->input->post("detalle")))->result();
+            
+            $this->load->view("admin/view_getDetalleIncidente",$data);
+        }
+        
+        function eliminar_incidente(){
+            $query = $this->Admin_model->deleteIncidente($this->input->post("incidente"));
+            
+            if($query){
+                echo "1";
+            }  else {
+                echo "0";
+            }
+        }
+        
+        function newDetalleIncidente(){
+            $count = $this->db->get("detalle_incidente")->num_rows();
+            $idincidente = "DI".$this->zerofill($count + 1, 9);
+            
+            $data_insert = array(
+                'iddetalleincidente' => $idincidente,
+                'strestadodetalleincidente' => $this->input->post("estado"),
+                'straccion' => $this->input->post("descripcion"),
+                'datfechahoradetalleincidente' => date("Y-m-d", strtotime($this->input->post("fecha")))." ".$this->input->post("hora"),
+                'idincidente' => $this->input->post("incidente")
+            );
+            
+            $result = $this->Admin_model->insertDetalleIncidente($data_insert);
+            
+            if($result){
+                echo "Se insertó correctamente el detalle al incidente.";
+            }
         }
         
         function cargarProvincias(){

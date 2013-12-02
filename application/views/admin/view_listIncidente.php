@@ -1,19 +1,160 @@
         <script>
             $(window).load(function() {
-               $( "#dialog-maps" ).dialog({
+               $( "#dialog-detalleincidente" ).dialog({
                     autoOpen: false,
                     modal: true
                 }); 
+                $( "#dialog-detalleincidente-list" ).dialog({
+                    autoOpen: false,
+                    modal: true
+                }); 
+                $("#dialog-detalleincidente-detalle").dialog({
+                    autoOpen: false,
+                    modal: true
+                }); 
+                $('.redB').click(function(){
+                    $("#validate").validate({
+                       rules: {
+                           descripcion: {
+                               required: true,
+                           },
+                           fecha:{
+                               required: true,
+                           },
+                           hora: {
+                             required: true,  
+                           },
+                           estado: {
+                               required: true,
+                           }
+
+                       },
+                       messages: { 
+                           descripcion: { 
+                               required: "Ingrese descripción para continuar",   
+                           },
+                           fecha:{
+                               required: "Ingrese fecha para continuar",
+                           },
+                           hora: {
+                               required: "Ingrese hora para continuar",
+                           },
+                           estado: {
+                               required: "Seleccione un estado para continuar",
+                           },
+                       },
+                       submitHandler: function(form) {
+                           $(form).ajaxSubmit({
+                               url:"<?= base_url()?>admin/newDetalleIncidente",
+                               type:"post",
+                               success: function(data){
+                                   document.getElementById("submit").disabled = false;
+                                   $("#resultados").html("");
+                                   $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                                   $("#dialog-detalleincidente").dialog("close");
+                                   getDetalle($("#incidente").val());
+                                   limpiaForm($("#validate"));
+                               },
+                               beforeSend: function(){
+                                   $("#resultados").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                                   document.getElementById("submit").disabled = true;
+                               },
+                               error:function(){
+                                   $("#resultados").html('Hubo un error mientras se insertaba los datos.');
+                               }
+                           });
+                     }
+                   }); 
+               });
             });
-            function getMapa(incidencia){
+            $('.redB2').click(function(){
+                    $("#validate2").validate({
+                       rules: {
+                           descripcion: {
+                               required: true,
+                           },
+                           fecha:{
+                               required: true,
+                           },
+                           hora: {
+                             required: true,  
+                           },
+                           estado: {
+                               required: true,
+                           }
+
+                       },
+                       messages: { 
+                           descripcion: { 
+                               required: "Ingrese descripción para continuar",   
+                           },
+                           fecha:{
+                               required: "Ingrese fecha para continuar",
+                           },
+                           hora: {
+                               required: "Ingrese hora para continuar",
+                           },
+                           estado: {
+                               required: "Seleccione un estado para continuar",
+                           },
+                       },
+                       submitHandler: function(form) {
+                           $(form).ajaxSubmit({
+                               url:"<?= base_url()?>admin/editDetalleIncidente",
+                               type:"post",
+                               success: function(data){
+                                   document.getElementById("submit2").disabled = false;
+                                   $("#resultados2").html("");
+                                   $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                                   $("#dialog-detalleincidente-detalle").dialog("close");
+                                   getDetalle($("#incidente").val());
+                               },
+                               beforeSend: function(){
+                                   $("#resultados2").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                                   document.getElementById("submit2").disabled = true;
+                               },
+                               error:function(){
+                                   $("#resultados2").html('Hubo un error mientras se insertaba los datos.');
+                               }
+                           });
+                     }
+                   }); 
+               });
+            });
+            function getDetalle(incidencia){
+                $("#dialog-detalleincidente-list").dialog("open");
+                document.getElementById("incidente").value = incidencia;
+                
                 $.ajax({
-                    url: "<?= base_url()?>admin/get_mapa_incidencia",
+                    url: "<?= base_url()?>admin/get_detalle_incidente",
                     type: "post",
                     data: "incidente="+incidencia,
                     success: function(data){
-                        $("#dialog-maps").html(data);
-                        $("#dialog-maps").dialog("open");
-                        $("#waiting").html('');
+                        $("#dialog-detalleincidente-list").html(data);
+                    }
+                });
+            }
+            
+            function newDetalle(){
+                $("#dialog-detalleincidente-list").dialog("close");
+                $("#dialog-detalleincidente").dialog("open");
+            }
+            
+            function eliminarIncidente(incidencia){
+                $.ajax({
+                    url: "<?= base_url()?>admin/eliminar_incidente",
+                    type: "post",
+                    data: "incidente="+incidencia,
+                    success: function(data){
+                        if(data == "1"){
+                            $.jGrowl("Se eliminó correctamente el incidente", { header: 'Mensaje del Sistema' });
+                            window.setTimeout(function () {
+                                location.href = "<?= base_url()?>admin/listado_incidentes";
+                            }, 1500);
+                        }else{
+                            $.jGrowl("No se pudo eliminar el incidente", { header: 'Mensaje del Sistema' });
+                            $("#waiting").html('');
+                        }
                     },
                     beforeSend: function(){
                         $("#waiting").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
@@ -24,7 +165,48 @@
                 });
             }
             
+            function limpiaForm(miForm) {
+                $(':input', miForm).each(function() {
+                var type = this.type;
+                var tag = this.tagName.toLowerCase();
+                if (type == 'text' || type == 'password' || tag == 'textarea')
+                this.value = "";
+                else if (type == 'checkbox' || type == 'radio')
+                this.checked = false;
+                else if (tag == 'select')
+                this.selectedIndex = 0;
+                });
+            }
+            
+            function editDetalleIncidente(detalle){
+                $("#dialog-detalleincidente-list").dialog("close");
+                $("#dialog-detalleincidente-detalle").dialog("open");
+                
+                $.ajax({
+                    url: "<?= base_url()?>admin/get_edit_detalle_incidente",
+                    type: "post",
+                    data: "detalle="+detalle,
+                    success: function(data){
+                        $("#dialog-detalleincidente-detalle").html(data);
+                    }
+                });
+            }
         </script>
+        <style>
+            .ui-dialog{
+                width: auto !important;
+            }
+            .timeEntry_control{
+                background: url('<?= base_url()?>assets/images/forms/spinnerUpDown.png') !important;
+            }
+            .ui-datepicker-append{
+                display: none;
+            }
+            .timeEntry_control{
+                float: left; 
+                margin-top: 10px;
+            }
+        </style>
     <!-- Title area -->
     <div class="titleArea">
         <div class="wrapper">
@@ -106,20 +288,61 @@
                         </td>
                         <td>
                             <a href="<?= base_url()?>admin/estados_incidente?iid=<?= $row_incidente->idincidente?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/laptop.png" alt="" /></a>
-                            <a href="#" id="view_map" title="" class="smallButton" style="margin: 5px;" onclick="getMapa('<?= $row_incidente->idincidente?>');"><img src="<?= base_url()?>assets/images/icons/dark/magnify.png" alt="" /></a>    
+                            <a href="#" id="view_map" title="" class="smallButton" style="margin: 5px;" onclick="getDetalle('<?= $row_incidente->idincidente?>');"><img src="<?= base_url()?>assets/images/icons/dark/magnify.png" alt="" /></a>    
                         </td>
                         <td>
                             <a href="<?= base_url()?>admin/editar_incidente?iid=<?= $row_incidente->idincidente?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
-                            <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminarTipoIncidente('<?= $row_incidente->idincidente?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
+                            <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminarIncidente('<?= $row_incidente->idincidente?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
                         </td>
                     </tr>
-                <?php }
+                <?php $i++;}
             ?>
             </tbody>
             </table>  
         </div>
         </div>
-        <div id="dialog-maps" name="dialog-maps" title="Mapa Generado"></div>
+        <div id="dialog-detalleincidente" name="dialog-detalleincidente" title="Registrar detalles de incidente">
+            <div class="uiForm">
+                <form action="" class="form" id="validate">
+                    <table cellspacing="0" cellpadding="0" border="0" width="300" style="text-align: left !important;">
+                        <tr>
+                            <td style="text-align: left !important;">
+                                <strong>Descripción: <span class="req">*</span></strong><br />
+                                <textarea rows="5" id="descripcion" name="descripcion" style="width: 290px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left !important;">
+                                <strong>Fecha: <span class="req">*</span></strong><br />
+                                <input type="text" class="datepicker" name="fecha" id="fecha" style="width: 290px !important;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left !important;">
+                                <strong>Hora: <span class="req">*</span></strong><br />
+                                <input type="text" class="timepicker" size="10" name="hora" id="hora" style="width: 271px !important; float:left; height: 16px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left !important;">
+                                <strong>Estado: <span class="req">*</span></strong><br />
+                                <select name="estado" id="estado" style="width: 290px !important;">
+                                    <option value="">Seleccione un estado...</option>
+                                    <option value="P">Pendiente</option>
+                                    <option value="C">Concluído</option>
+                                </select>
+                                <input type="hidden" name="incidente" id="incidente" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center"><br /><input type="submit" value="Guardar" class="redB" id="submit" /><div id="resultados"></div></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="dialog-detalleincidente-list" name="dialog-detalleincidente-list" title="Detalles de incidente"></div>
+        <div id="dialog-detalleincidente-detalle" name="dialog-detalleincidente-detalle" title="Editar detalle incidente"></div>
     </div>
     
     <!-- Footer line -->

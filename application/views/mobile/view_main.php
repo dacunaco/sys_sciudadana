@@ -7,10 +7,14 @@
         <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        <script type="text/javascript" src="<?= base_url()?>assets/js/plugins/forms/jquery.validationEngine-es.js"></script>
         <script type="text/javascript" src="<?= base_url()?>assets/js/jquery.validate.js"></script>   
         <script>
             $(window).load(function() {
+                $("#registerForm").validate({
+                        errorPlacement: function(error, element) {
+                                error.insertAfter(element);
+                        }
+                });
                 $("#zona").change(function() {
                     $("#zona option:selected").each(function() {
                         var zona = $('#zona').val();
@@ -38,28 +42,6 @@
                     });
                 });
             });
-            $( document ).on( "click", ".show-page-loading-msg", function() {
-                var $this = $( this ),
-                    theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
-                    msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
-                    textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
-                    textonly = !!$this.jqmData( "textonly" );
-                    html = $this.jqmData( "html" ) || "";
-                $.mobile.loading( "show", {
-                        text: msgText,
-                        textVisible: textVisible,
-                        theme: theme,
-                        textonly: textonly,
-                        html: html
-                });
-                $("#registerForm").validate({
-                        errorPlacement: function(error, element) {
-                                $.mobile.loading( "hide" );
-                                error.insertAfter(element);
-                        }
-                });
-                
-            })
         </script>
         <style>
             label.error { 
@@ -129,7 +111,7 @@
                         <span> Fecha y Hora : </span> <input type=text id="fechahora" name="fechahora" value="<?= date('d/m/Y H:i:s',  strtotime("+1 hour"))?>" readonly="readonly" />
                     </div>
                     <input type="hidden" name="trabajador" id="trabajador" value="<?= $trabajador?>">
-                    <button type="submit" class="show-page-loading-msg" data-theme="a" data-textonly="false" data-textvisible="true" data-msgtext="Guardando datos..." data-inline="true">Registrar Incidencia</button>
+                    <input type="submit" id="submit" name="submit" value="Registrar Incidencia">
                 </form>
             </div>
         </div>
