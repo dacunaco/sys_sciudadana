@@ -833,6 +833,7 @@
         }
         
         function get_detalle_incidente(){
+            $this->db->where("strestadodetalleincidente <> 'E'");
             $data['detalle'] = $this->db->get_where("detalle_incidente",array("idincidente" => $this->input->post("incidente")))->result();
             
             $this->load->view("admin/view_getDetalle",$data);
@@ -870,6 +871,30 @@
             
             if($result){
                 echo "Se insertó correctamente el detalle al incidente.";
+            }
+        }
+        
+        function editar_detalle_incidencia(){
+            $data_insert = array(
+                'strestadodetalleincidente' => $this->input->post("estado"),
+                'straccion' => $this->input->post("descripcion"),
+                'datfechahoradetalleincidente' => date("Y-m-d", strtotime($this->input->post("fecha")))." ".$this->input->post("hora")
+            );
+            
+            $result = $this->Admin_model->editDetalleIncidente($data_insert,  $this->input->post("detalle"));
+            
+            if($result){
+                echo "Se modificó correctamente el detalle al incidente.";
+            }
+        }
+        
+        function eliminar_detalle_incidente(){
+            $query = $this->Admin_model->deleteDetalleIncidente($this->input->post("detalle"));
+            
+            if($query){
+                echo "1";
+            }  else {
+                echo "0";
             }
         }
         

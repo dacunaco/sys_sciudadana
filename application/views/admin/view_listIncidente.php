@@ -67,60 +67,7 @@
                    }); 
                });
             });
-            $('.redB2').click(function(){
-                    $("#validate2").validate({
-                       rules: {
-                           descripcion: {
-                               required: true,
-                           },
-                           fecha:{
-                               required: true,
-                           },
-                           hora: {
-                             required: true,  
-                           },
-                           estado: {
-                               required: true,
-                           }
-
-                       },
-                       messages: { 
-                           descripcion: { 
-                               required: "Ingrese descripción para continuar",   
-                           },
-                           fecha:{
-                               required: "Ingrese fecha para continuar",
-                           },
-                           hora: {
-                               required: "Ingrese hora para continuar",
-                           },
-                           estado: {
-                               required: "Seleccione un estado para continuar",
-                           },
-                       },
-                       submitHandler: function(form) {
-                           $(form).ajaxSubmit({
-                               url:"<?= base_url()?>admin/editDetalleIncidente",
-                               type:"post",
-                               success: function(data){
-                                   document.getElementById("submit2").disabled = false;
-                                   $("#resultados2").html("");
-                                   $.jGrowl(data, { header: 'Mensaje del Sistema' });
-                                   $("#dialog-detalleincidente-detalle").dialog("close");
-                                   getDetalle($("#incidente").val());
-                               },
-                               beforeSend: function(){
-                                   $("#resultados2").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
-                                   document.getElementById("submit2").disabled = true;
-                               },
-                               error:function(){
-                                   $("#resultados2").html('Hubo un error mientras se insertaba los datos.');
-                               }
-                           });
-                     }
-                   }); 
-               });
-            });
+            
             function getDetalle(incidencia){
                 $("#dialog-detalleincidente-list").dialog("open");
                 document.getElementById("incidente").value = incidencia;
@@ -188,6 +135,60 @@
                     data: "detalle="+detalle,
                     success: function(data){
                         $("#dialog-detalleincidente-detalle").html(data);
+                    }
+                });
+            }
+            
+            function editarDetalleIncidente(){
+                var vdescripcion = $("#descripciondetalle").val();
+                var vfecha = $("#fechadetalle").val();
+                var vhora = $("#horadetalle").val();
+                var vestado = $("#estadodetalle option:selected").val();
+                var vdetalle = $("#detalle").val();
+                
+                if(vdescripcion == ""){
+                    alert("Ingresa un detalle para continuar");
+                    document.getElementById("descripciondetalle").focus();
+                }else if(vfecha == ""){
+                    alert("Ingresa una fecha para continuar");
+                    document.getElementById("fechadetalle").focus();
+                }else if(vhora == ""){
+                    alert("Ingresa una hora para continuar");
+                    document.getElementById("horadetalle").focus();
+                }else if(vestado == ""){
+                    alert("Seleccione un estado para continuar");
+                    document.getElementById("estadodetalle").focus();
+                }else{
+                    $.post("<?= base_url()?>admin/editar_detalle_incidencia",{detalle:vdetalle, descripcion: vdescripcion, fecha:vfecha, hora:vhora, estado: vestado},
+                        function(data){
+                            $.jGrowl(data, { header: 'Mensaje del Sistema' });
+                           $("#dialog-detalleincidente-detalle").dialog("close");
+                           getDetalle($("#incidente").val());
+                        }
+                    )
+                }
+            }
+            
+            function eliminardetalleIncidente(detalle){
+                $.ajax({
+                    url: "<?= base_url()?>admin/eliminar_detalle_incidente",
+                    type: "post",
+                    data: "detalle="+detalle,
+                    success: function(data){
+                        if(data == "1"){
+                            $.jGrowl("Se eliminó correctamente el detalle de incidente", { header: 'Mensaje del Sistema' });
+                            getDetalle($("#incidente").val());
+                            $("#waiting").html('');
+                        }else{
+                            $.jGrowl("No se pudo eliminar el incidente", { header: 'Mensaje del Sistema' });
+                            $("#waiting").html('');
+                        }
+                    },
+                    beforeSend: function(){
+                        $("#waiting").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                    },
+                    error:function(){
+                        $("#waiting").html('Hubo un error mientras se cargaba los datos.');
                     }
                 });
             }

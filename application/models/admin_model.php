@@ -227,5 +227,19 @@
             
             return $result;
         }
+        
+        function editDetalleIncidente($data,$detalle){
+            $this->db->where("iddetalleincidente",$detalle);
+            $result = $this->db->update("detalle_incidente",$data);
+            
+            return $result;
+        }
+        
+        function deleteDetalleIncidente($data){
+            $this->db->where("iddetalleincidente",$data);
+            $result = $this->db->update("detalle_incidente",array("strestadodetalleincidente" => "E"));
+            
+            return $result;
+        }
     }
 ?>

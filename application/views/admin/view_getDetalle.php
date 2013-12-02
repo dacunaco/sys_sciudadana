@@ -30,7 +30,7 @@
                                 <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminardetalleIncidente('<?= $row_detalle->iddetalleincidente?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
                             </td>
                         </tr>
-                    <?php }else{?>
+                    <?php }else if($row_detalle->strestadodetalleincidente == "C"){?>
                         <tr>
                             <td><?= $row_detalle->iddetalleincidente?></td>
                             <td><?= $row_detalle->straccion?></td>
