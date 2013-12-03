@@ -12,6 +12,10 @@
                     autoOpen: false,
                     modal: true
                 }); 
+                $("#dialog-postdown").dialog({
+                    autoOpen: false,
+                    modal: true
+                }); 
                 $('.redB').click(function(){
                     $("#validate").validate({
                        rules: {
@@ -66,6 +70,50 @@
                      }
                    }); 
                });
+               $('#submit2').click(function(){
+                    $("#validate2").validate({
+                       rules: {
+                           conclusion: {
+                               required: true,
+                           }
+
+                       },
+                       messages: { 
+                           conclusion: { 
+                               required: "Seleccione estado para continuar",   
+                           }
+                       },
+                       submitHandler: function(form) {
+                           $(form).ajaxSubmit({
+                               url:"<?= base_url()?>admin/concluirIncidente",
+                               type:"post",
+                               success: function(data){
+                                   if(data == "1"){
+                                       document.getElementById("submit2").disabled = false;
+                                        $("#resultados2").html("");
+                                        $.jGrowl("Se concluyó incidente correctamente", { header: 'Mensaje del Sistema' });
+                                        $("#dialog-postdown").dialog("close");
+                                        window.setTimeout(function () {
+                                             location.href = "<?= base_url()?>admin/listado_incidentes";
+                                         }, 1500);
+                                   }else{
+                                        document.getElementById("submit2").disabled = false;
+                                        $("#resultados2").html("");
+                                        $.jGrowl("No se pudo concluir el incidente porque tiene detalles pendientes", { header: 'Mensaje del Sistema' });
+                                        $("#dialog-postdown").dialog("close");
+                                   }
+                               },
+                               beforeSend: function(){
+                                   $("#resultados2").html('<img src="<?= base_url()?>assets/images/loaders/loader.gif" alt="" style="margin: 5px;" />');
+                                   document.getElementById("submit2").disabled = true;
+                               },
+                               error:function(){
+                                   $("#resultados2").html('Hubo un error mientras se insertaba los datos.');
+                               }
+                           });
+                     }
+                   }); 
+               });
             });
             
             function getDetalle(incidencia){
@@ -80,6 +128,11 @@
                         $("#dialog-detalleincidente-list").html(data);
                     }
                 });
+            }
+            
+            function postDown(incidencia){
+                $("#dialog-postdown").dialog("open");
+                document.getElementById("incidenteconclusion").value = incidencia;
             }
             
             function newDetalle(){
@@ -287,14 +340,26 @@
                                 }
                             ?>
                         </td>
-                        <td>
-                            <a href="<?= base_url()?>admin/estados_incidente?iid=<?= $row_incidente->idincidente?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/laptop.png" alt="" /></a>
-                            <a href="#" id="view_map" title="" class="smallButton" style="margin: 5px;" onclick="getDetalle('<?= $row_incidente->idincidente?>');"><img src="<?= base_url()?>assets/images/icons/dark/magnify.png" alt="" /></a>    
-                        </td>
-                        <td>
-                            <a href="<?= base_url()?>admin/editar_incidente?iid=<?= $row_incidente->idincidente?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
-                            <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminarIncidente('<?= $row_incidente->idincidente?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
-                        </td>
+                        <?php
+                            if($row_incidente->strestadoincidente == "C"){?>
+                                <td align="center">
+                                    <a href="<?= base_url()?>admin/view_map?iid=<?= $row_incidente->idincidente?>" id="view_map" title="" class="smallButton" style="margin: 5px;" ><img src="<?= base_url()?>assets/images/icons/dark/magnify.png" alt="" /></a>                  
+                                </td>
+                                <td align="center">
+                                    -
+                                </td>
+                            <?php }else{?>
+                                <td align="center">
+                                    <a href="#" onclick="getDetalle('<?= $row_incidente->idincidente?>');" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/laptop.png" alt="" /></a>
+                                    <a href="<?= base_url()?>admin/view_map?iid=<?= $row_incidente->idincidente?>" id="view_map" title="" class="smallButton" style="margin: 5px;" ><img src="<?= base_url()?>assets/images/icons/dark/magnify.png" alt="" /></a>    
+                                    <a href="#" id="darbaja" title="" class="smallButton" style="margin: 5px;" onclick="postDown('<?= $row_incidente->idincidente?>');"><img src="<?= base_url()?>assets/images/icons/dark/like.png" alt="" /></a>  
+                                </td>
+                                <td align="center">
+                                    <a href="<?= base_url()?>admin/editar_incidente?iid=<?= $row_incidente->idincidente?>" title="" class="smallButton" style="margin: 5px;"><img src="<?= base_url()?>assets/images/icons/dark/pencil.png" alt="" /></a>
+                                    <a href="#" title="" class="smallButton" style="margin: 5px;" onclick="eliminarIncidente('<?= $row_incidente->idincidente?>')"><img src="<?= base_url()?>assets/images/icons/dark/close.png" alt="" /></a>
+                                </td>
+                            <?php }
+                        ?>
                     </tr>
                 <?php $i++;}
             ?>
@@ -337,6 +402,27 @@
                         </tr>
                         <tr>
                             <td align="center"><br /><input type="submit" value="Guardar" class="redB" id="submit" /><div id="resultados"></div></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="dialog-postdown" name="dialog-postdown" title="Concluir Incidente">
+            <div class="uiForm">
+                <form action="" class="form" id="validate2">
+                    <table cellspacing="0" cellpadding="0" border="0" width="300" style="text-align: left !important;">
+                        <tr>
+                            <td style="text-align: left !important;">
+                                <strong>Estado: <span class="req">*</span></strong><br />
+                                <select name="conclusion" id="conclusion" style="width: 290px !important;">
+                                    <option value="">Seleccione un estado...</option>
+                                    <option value="C">Concluído</option>
+                                </select>
+                                <input type="hidden" name="incidenteconclusion" id="incidenteconclusion">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center"><br /><input type="submit" value="Guardar" class="redB" id="submit2" /><div id="resultados2"></div></td>
                         </tr>
                     </table>
                 </form>

@@ -235,11 +235,31 @@
             return $result;
         }
         
+        function editIncidente($data,$detalle){
+            $this->db->where("idincidente",$detalle);
+            $result = $this->db->update("incidente",$data);
+            
+            return $result;
+        }
+        
         function deleteDetalleIncidente($data){
             $this->db->where("iddetalleincidente",$data);
             $result = $this->db->update("detalle_incidente",array("strestadodetalleincidente" => "E"));
             
             return $result;
+        }
+        
+        function concluirIncidente($incidente){
+            $this->db->where("idincidente",$incidente);
+            $query = $this->db->get_where("detalle_incidente",array("strestadodetalleincidente" => "P"))->num_rows();
+            
+            if($query > 0){
+                return false;
+            }else{
+                $result = $this->db->update("incidente",array("strestadoincidente" => "C"));
+                return true;
+            }
+            
         }
     }
 ?>
