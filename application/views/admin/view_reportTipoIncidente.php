@@ -13,15 +13,19 @@
     
     <div class="wrapper">
         <!-- Form -->
-        <form action="" class="form" id="validate" method="post">
+        <form action="<?= base_url()?>admin/reporteTipoIncidente" class="form" id="validate" method="post">
             <fieldset>
                 <div class="widget">
                     <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Búsqueda por Tipos de Incidentes</h6></div>
                     <div class="formRow">
                         <label>Tipo de Incidente:</label>
                         <div class="formRight searchDrop">
-                        <select data-placeholder="Seleccione Tipo de Incidente..." class="chzn-select" style="width:150px;" tabindex="2">
-                            <option value=""></option>
+                        <select data-placeholder="Seleccione Tipo de Incidente..." class="chzn-select" style="width:150px;" tabindex="2" name="tipo" id="tipo">
+                            <?php
+                                foreach ($tipoincidente as $row){?>
+                                    <option value="<?= $row->idtipoincidente?>"><?= $row->strtipoincidente?></option>
+                                <?php } 
+                            ?>
                         </select>
                         </div>             
                         <div class="clear"></div>

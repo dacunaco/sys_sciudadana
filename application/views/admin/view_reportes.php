@@ -40,12 +40,12 @@
                                     <a href="#" target="_blank" style="margin-top: 10px; margin-left: 5px; float: left;">Reporte por Totales Anuales y Mensuales</a>
                                 </td>
                                 <td width="50%" align="center" style="padding-top: 10px; padding-bottom: 10px;"><img src="<?= base_url()?>assets/images/pdf.png" width="32" style="float: left;">
-                                    <a href="#" target="_blank" style="margin-top: 10px; margin-left: 5px; float: left;">Reporte en Mapa por Tipo y Zona</a>
+                                    <a href="<?= base_url()?>admin/reportMapForm" target="_blank" style="margin-top: 10px; margin-left: 5px; float: left;">Reporte en Mapa por Tipo y Zona</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="50%" align="center" style="padding-top: 10px; padding-bottom: 10px;"><img src="<?= base_url()?>assets/images/pdf.png" width="32" style="float: left;">
-                                    <a href="#" target="_blank" style="margin-top: 10px; margin-left: 5px; float: left;">Reporte Gráfico</a>
+                                    <a href="<?= base_url()?>admin/reportGP" target="_blank" style="margin-top: 10px; margin-left: 5px; float: left;">Reporte Gráfico</a>
                                 </td>
                                 <td width="50%" align="center">&nbsp;</td>
                             </tr>

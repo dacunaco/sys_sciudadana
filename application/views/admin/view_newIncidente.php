@@ -4,6 +4,12 @@
     }
 </style>
 <script>
+    var vmap;
+    
+    function map(){
+        vmap = window.open('<?= base_url()?>admin/get_coordenadas','validate',"width=599,height=500,toolbar=no,menubar=no,location=no");
+        vmap.focus();
+    }
     $(window).load(function() {
         document.getElementById("zona").focus();
         $('.redB').click(function(){
@@ -140,7 +146,7 @@
     
     <div class="wrapper">
         <!-- Form -->
-        <form action="" class="form" id="validate" method="post">
+        <form action="" class="form" id="validate" name="validate" method="post">
             <fieldset>
                 <div class="widget">
                     <div class="title"><img src="<?= base_url()?>assets/images/icons/dark/list.png" alt="" class="titleIcon" /><h6>Registro de Incidentes</h6></div>
@@ -199,7 +205,7 @@
                     </div>
                     <div class="formRow">
                         <label>Coordenadas:<span class="req">*</span></label>
-                        <div class="formRight"><input type="text" value="<?= $coordenadas?>" name="coordenadas" id="coordenadas"/><a href="<?= base_url()?>admin/get_coordenadas" title="" class="button greyishB" style="margin: 5px 0px;"><img src="<?= base_url()?>assets/images/icons/light/create.png" alt="" class="icon"><span>Obtener Coordenadas</span></a></div>
+                        <div class="formRight"><input type="text" readonly="readonly" value="<?= $coordenadas?>" name="coordenadas" id="coordenadas"/><a href="#" title="" class="button greyishB" style="margin: 5px 0px;" onclick="map();"><img src="<?= base_url()?>assets/images/icons/light/create.png" alt="" class="icon"><span>Obtener Coordenadas</span></a></div>
                         <div class="clear"></div>
                     </div>
                     <div class="formRow">

@@ -326,8 +326,30 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $data['tipoincidente'] = $this->db->get("tipo_incidente")->result();
+                
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_reportTipoIncidente');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporteTipoIncidente(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                $this->db->where("strestadoincidente <> 'E'");
+                $data['incidentes'] = $this->db->get_where("incidente",array("idtipoincidente" => $this->input->post("tipo")))->result();
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_report1');
                 $this->load->view('admin/footer');
             }else{
                 redirect('user');
@@ -344,8 +366,32 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $data['tipoincidente'] = $this->db->get("tipo_incidente")->result();
+                $data['zonas'] = $this->db->get("zona")->result();
+                
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_reportTIZ');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporteTipoIncidenteZona(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['zonas'] = $this->db->get_where("zona",array("idzona" => $this->input->post("zona")))->result();
+                $data['tipoincidente'] = $this->input->post("tipo");
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_report2');
                 $this->load->view('admin/footer');
             }else{
                 redirect('user');
@@ -362,8 +408,33 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $data['tipoincidente'] = $this->db->get("tipo_incidente")->result();
+                $data['zonas'] = $this->db->get("zona")->result();
+                
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_reportTIZE');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporteTipoIncidenteZonaEstado(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['zonas'] = $this->db->get_where("zona",array("idzona" => $this->input->post("zona")))->result();
+                $data['tipoincidente'] = $this->input->post("tipo");
+                $data['estado'] = $this->input->post("estado");
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_report3');
                 $this->load->view('admin/footer');
             }else{
                 redirect('user');
@@ -380,8 +451,33 @@
                     'dni' => $this->session->userdata['user_data']['user_dni']
                 );
                 
+                $data['tipoincidente'] = $this->db->get("tipo_incidente")->result();
+                $data['zonas'] = $this->db->get("zona")->result();
+                
                 $this->load->view('admin/header',$data);
                 $this->load->view('admin/view_reportTIZU');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reporteTipoIncidenteZonaUrbanizacion(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['zonas'] = $this->db->get_where("zona",array("idzona" => $this->input->post("zona")))->result();
+                $data['tipoincidente'] = $this->input->post("tipo");
+                $data['urbanizacion'] = $this->input->post("urbanizacion");
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_report4');
                 $this->load->view('admin/footer');
             }else{
                 redirect('user');
@@ -778,9 +874,9 @@
                 
                 $data['map'] = $this->googlemaps->create_map();
                 
-                $this->load->view('admin/header',$data);
-                $this->load->view('admin/view_getMap');
-                $this->load->view('admin/footer');
+                
+                $this->load->view('admin/view_getMap',$data);
+                
             }else{
                 redirect('user');
             }  
@@ -999,6 +1095,73 @@
             }  
         }
         
+        function reportMapForm(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $data['tipoincidente'] = $this->db->get("tipo_incidente")->result();
+                $data['zonas'] = $this->db->get("zona")->result();
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportMap');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function reportMap(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                $this->load->library('googlemaps');
+                
+                $incidencia = $this->db->get_where("incidente",array("idzona" => $this->input->post("zona"), "idtipoincidente" => $this->input->post("tipo")))->result();
+                
+                foreach ($incidencia as $row_mapa_principal){
+                    $config['center'] = '-8.112,-79.0288';
+                    $config['zoom'] = 14;
+                    $config['map_div_id'] = 'map';
+                    $config['mapTypeControlStyle'] = 'DROPDOWN_MENU';
+                    $config['places'] = TRUE;
+                    $this->googlemaps->initialize($config);
+                    
+                    $marker = array();
+                    $marker['position'] = $row_mapa_principal->strcoordenadasincidente;
+                    $marker['infowindow_content'] = $row_mapa_principal->strdescripcionincidente;
+                    
+                    $marcador = $this->db->get_where("tipo_incidente",array("idtipoincidente" => $row_mapa_principal->idtipoincidente))->result();
+                    
+                    foreach ($marcador as $row_marcador){
+                        $marker['icon'] = base_url().'assets/images/tipo-incidente/'.$row_marcador->imgtipoincidente;
+                    }
+                    
+                    $marker['animation'] = 'BOUNCE';
+                    $this->googlemaps->add_marker($marker);
+                }   
+                
+                $data['map'] = $this->googlemaps->create_map();
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_Map');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
         function cargarProvincias(){
             $departamento = $this->input->post("departamento");
             
@@ -1032,6 +1195,7 @@
             }
         }
         
+        
         function cargarDistritos(){
             $provincia = $this->input->post("provincia");
             
@@ -1041,6 +1205,91 @@
             foreach ($result as $row_distrito){
                 echo '<option value="'.$row_distrito->IdDistrito.'">'.$row_distrito->Nombre.'</option>';
             }
+        }
+        
+        function reportGP(){
+            if($this->session->userdata('user_data')){
+                $data = array(
+                    'foto' => $this->session->userdata['user_data']['user_foto'],
+                    'sexo' => $this->session->userdata['user_data']['user_sex'],
+                    'nombres' => $this->session->userdata['user_data']['user_name'],
+                    'apellidos' => $this->session->userdata['user_data']['user_lastname'],
+                    'dni' => $this->session->userdata['user_data']['user_dni']
+                );
+                
+                
+                $axis_data = array();
+                $num_data = array();
+                $percentage = array();
+                $aux = array();
+                
+                $axis = $this->db->query("CALL sp_getReporteTI()")->result();
+                
+                
+                foreach ($axis as $row){
+                    $axis_data[] = $row->strtipoincidente;
+                    $num_data[] = intval($row->total);
+                    $aux[] = array($row->strtipoincidente,  intval($row->total));
+                }
+                
+                $series_data[] = array('name' => 'Tipos de Incidentes', 'data' => $num_data);
+                
+                $percentage[] = array('type' => 'pie', 'name' => 'Incidentes', 'data' => $aux);
+                
+                $this->db->freeDBResource($this->db->conn_id);
+                
+                $mes1 = date('m');
+                $mes2 = date('m',  strtotime("-1 month"));
+                
+                $axis2 = $this->db->query("CALL sp_getReporteTIM($mes1,$mes2)")->result();
+                $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre");
+                
+                $data['mes1'] = $meses[intval($mes1)-1];
+                $data['mes2'] = $meses[intval($mes2)-1];
+                
+                $mes1_aux = array();
+                $mes2_aux = array();
+                
+                foreach ($axis2 as $row2){
+                    $mes1_aux[] = intval($row2->mes1);
+                    $mes2_aux[] = intval($row2->mes2);
+                }
+                
+                $series_data2 = array(array('name' => $meses[intval($mes1)-1], 'data' => $mes1_aux),array('name' => $meses[intval($mes2)-1], 'data' => $mes2_aux));
+                
+                $this->db->freeDBResource($this->db->conn_id);
+                
+                $data['series_data2'] = json_encode($series_data2);
+                $data['series_data'] = json_encode($series_data);
+                $data['axis_data'] = json_encode($axis_data);
+                $data['percentage'] = json_encode($percentage);
+                
+                $this->load->view('admin/header',$data);
+                $this->load->view('admin/view_reportGP');
+                $this->load->view('admin/footer');
+            }else{
+                redirect('user');
+            }  
+        }
+        
+        function ajax_get_data(){
+            $mes1 = $this->input->post("mes1");
+            $mes2 = $this->input->post("mes2");
+            
+            $axis2 = $this->db->query("CALL sp_getReporteTIM($mes1,$mes2)")->result();
+
+            $mes1_aux = array();
+            $mes2_aux = array();
+
+            foreach ($axis2 as $row2){
+                $mes1_aux[] = intval($row2->mes1);
+                $mes2_aux[] = intval($row2->mes2);
+            }
+            
+            $series_data[] = $mes1_aux;
+            $series_data[] = $mes2_aux;
+            
+            echo json_encode(array('status' => 'ok', 'series_data' => $series_data));
         }
         
         function zerofill($entero, $largo){

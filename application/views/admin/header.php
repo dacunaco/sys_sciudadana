@@ -90,10 +90,9 @@
                 
             </ul>
         </li>
-        <li class="tables"><a href="#" title="" class="exp"><span>Operaciones</span><strong>3</strong></a>
+        <li class="tables"><a href="#" title="" class="exp"><span>Operaciones</span><strong>2</strong></a>
             <ul class="sub">
                 <li class="last"><a href="<?= base_url()?>admin/listado_incidentes" title="">Incidente</a></li>
-                <li class="last"><a href="<?= base_url()?>admin/buscar_incidente" title="">Buscar Incidentes</a></li>
                 <li class="last"><a href="<?= base_url()?>admin/listado_reportes" title="">Reportes Dinámicos</a></li>
                 
             </ul>
